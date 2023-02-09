@@ -1,6 +1,6 @@
-package opdrachten;
+package week_one;
 
-public class WeekOne {
+public class BigO {
     // O(1)
     public static int bigOOfOne(int x){
         return x + 5;
