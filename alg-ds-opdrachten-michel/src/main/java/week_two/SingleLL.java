@@ -3,9 +3,13 @@ package week_two;
 public class SingleLL {
     Node head;
 
-    private static class Node {
+    private class Node {
         String data;
         Node next;
+
+        public Node(String data) {
+            this.data = data;
+        }
     }
 
     /**
@@ -17,11 +21,9 @@ public class SingleLL {
         int size = 0;
         Node n = this.head;
 
-        if (n != null) {
-            while (n != null) {
-                size += 1;
-                n = n.next;
-            }
+        while (n != null) {
+            size += 1;
+            n = n.next;
         }
 
         return size;
@@ -31,12 +33,9 @@ public class SingleLL {
      * append a new node to the end of the linked list
      *
      * @param data to be set in the linked list
-     * @return boolean if it succeeded or failed
      */
     public void appendNode(String data) {
-        Node n = new Node();
-        n.data = data;
-        n.next = null;
+        Node n = new Node(data);
 
         // check if it already contains nodes
         if (this.getSize() > 0) {
@@ -89,8 +88,7 @@ public class SingleLL {
      */
     public boolean insertNode(int index, String data) {
         Node tmp = this.head;
-        Node n = new Node();
-        n.data = data;
+        Node n = new Node(data);
         int count = 0;
 
         if (tmp == null) {
@@ -99,7 +97,7 @@ public class SingleLL {
 
         if (this.getSize() > 0) {
             while (tmp.next != null) {
-                if (count == index -1) {
+                if (count == index - 1) {
                     Node next = tmp.next; // next
                     tmp.next = n; // set the new next
                     tmp.next.next = next;
@@ -115,7 +113,7 @@ public class SingleLL {
     /**
      * print all the data that is in the linked list
      */
-    public void print(){
+    public void print() {
         Node tmp = this.head;
         while (tmp.next != null) {
             System.out.println(tmp.data);
