@@ -34,9 +34,9 @@ public class MenuController {
     }
 
     private void createMenuItems(){
-        this.pageMenu.add(this.createMenuItem(MenuItemName.pageOne, event -> pageListener(1)));
-        this.pageMenu.add(this.createMenuItem(MenuItemName.pageTwo, event -> pageListener(2)));
-        this.pageMenu.add(this.createMenuItem(MenuItemName.pageThree, event -> pageListener(3)));
+        this.pageMenu.add(this.createMenuItem(MenuItemName.PAGE_ONE, event -> pageListener(1)));
+        this.pageMenu.add(this.createMenuItem(MenuItemName.PAGE_TWO, event -> pageListener(2)));
+        this.pageMenu.add(this.createMenuItem(MenuItemName.PAGE_THREE, event -> pageListener(3)));
         this.helpMenu.add(this.createMenuItem(MenuItemName.HELP, event -> helpListener()));
     }
 

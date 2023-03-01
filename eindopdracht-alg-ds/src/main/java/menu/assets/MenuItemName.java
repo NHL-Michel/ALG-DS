@@ -6,8 +6,8 @@ public class MenuItemName {
     public static final String PAGE = "Page";
 
     // menu items
-    public static final String pageOne = "Page 1";
-    public static final String pageTwo = "Page 2";
-    public static final String pageThree = "Page 3";
+    public static final String PAGE_ONE = "Page 1";
+    public static final String PAGE_TWO = "Page 2";
+    public static final String PAGE_THREE = "Page 3";
 
 }
