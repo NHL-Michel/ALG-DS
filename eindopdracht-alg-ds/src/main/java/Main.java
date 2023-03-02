@@ -1,17 +1,17 @@
 import javax.swing.*;
 
 import menu.MenuController;
-import style.Styling;
+import assets.FrameStyling;
 
 public class Main {
     public static void main(String args[]){
-        JFrame frame = new JFrame(Styling.FRAMENAME);
+        JFrame frame = new JFrame(FrameStyling.FRAMENAME);
 
         // build the menu controller, update frame with info
         new MenuController(frame);
 
         // set styling of the JFrame
-        frame.setSize(Styling.WIDTH,Styling.HEIGHT);
+        frame.setSize(FrameStyling.WIDTH, FrameStyling.HEIGHT);
 
         // set frame visible
         frame.setVisible(true);

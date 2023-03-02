@@ -1,7 +1,7 @@
 package menu;
 
 import menu.assets.MenuFactory;
-import menu.assets.MenuItemName;
+import menu.assets.MenuBar;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -29,15 +29,15 @@ public class MenuController {
     }
 
     private void createMenus(){
-        this.pageMenu = MenuFactory.createMenu(MenuItemName.PAGE);
-        this.helpMenu = MenuFactory.createMenu(MenuItemName.HELP);
+        this.pageMenu = MenuFactory.createMenu(MenuBar.PAGE);
+        this.helpMenu = MenuFactory.createMenu(MenuBar.HELP);
     }
 
     private void createMenuItems(){
-        this.pageMenu.add(this.createMenuItem(MenuItemName.PAGE_ONE, event -> pageListener(1)));
-        this.pageMenu.add(this.createMenuItem(MenuItemName.PAGE_TWO, event -> pageListener(2)));
-        this.pageMenu.add(this.createMenuItem(MenuItemName.PAGE_THREE, event -> pageListener(3)));
-        this.helpMenu.add(this.createMenuItem(MenuItemName.HELP, event -> helpListener()));
+        this.pageMenu.add(this.createMenuItem(MenuBar.PAGE_ONE, event -> pageListener(1)));
+        this.pageMenu.add(this.createMenuItem(MenuBar.PAGE_TWO, event -> pageListener(2)));
+        this.pageMenu.add(this.createMenuItem(MenuBar.PAGE_THREE, event -> pageListener(3)));
+        this.helpMenu.add(this.createMenuItem(MenuBar.HELP, event -> helpListener()));
     }
 
     public void setMenuBar(){

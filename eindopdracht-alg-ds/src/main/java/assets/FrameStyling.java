@@ -1,6 +1,6 @@
-package style;
+package assets;
 
-public class Styling {
+public class FrameStyling {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 800;
 

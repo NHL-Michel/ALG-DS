@@ -1,6 +1,6 @@
 package menu.assets;
 
-public class MenuItemName {
+public class MenuBar {
     // menus
     public static final String HELP = "Help";
     public static final String PAGE = "Page";
