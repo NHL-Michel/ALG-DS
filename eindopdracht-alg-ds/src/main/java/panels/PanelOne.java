@@ -3,6 +3,7 @@ package panels;
 import assets.ComponentBuilder;
 import datastructures.linkedlist.LinkedL;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class PanelOne extends Panel {
@@ -26,7 +27,7 @@ public class PanelOne extends Panel {
      * build all headers for panel one
      */
     private void buildHeaders(){
-        this.panel.add(ComponentBuilder.buildHeader("Linked list demo", new Rectangle(10, 20, 200, 20)));
+        this.panel.add(ComponentBuilder.buildHeader("Linked list demo", new Rectangle(30, 20, 200, 20)));
     }
 
     /**
@@ -66,7 +67,7 @@ public class PanelOne extends Panel {
                                                                         </ol>
                                                                     </p>
                                                                 </html>
-                                                                """, new Rectangle(10, 60, 300, 180)));
+                                                                """, new Rectangle(30, 60, 300, 180)));
         this.panel.add(ComponentBuilder.buildParagraph("""
                                                                 <html>
                                                                     <p>
@@ -103,7 +104,7 @@ public class PanelOne extends Panel {
      */
 
     private void buildLinkedList(){
-
+        JOptionPane.showMessageDialog(null,"test");
     }
 
     private void sortAlgorithmOne(){

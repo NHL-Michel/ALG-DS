@@ -1,6 +1,6 @@
 package datastructures.linkedlist;
 
-import dataset.data;
+import assets.dataset.data;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package dataset;
+package assets.dataset;
 
 import java.util.ArrayList;
 import java.util.Random;

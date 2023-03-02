@@ -1,17 +1,16 @@
 import javax.swing.*;
 
 import menu.MenuController;
-import assets.FrameStyling;
 
 public class Main {
     public static void main(String args[]){
-        JFrame frame = new JFrame(FrameStyling.FRAMENAME);
+        JFrame frame = new JFrame("Algoritme en datastructuren - Michel");
 
         // build the menu controller, update frame with info
         new MenuController(frame);
 
         // set styling of the JFrame
-        frame.setSize(FrameStyling.WIDTH, FrameStyling.HEIGHT);
+        frame.setSize(800, 800);
 
         // set frame visible
         frame.setVisible(true);

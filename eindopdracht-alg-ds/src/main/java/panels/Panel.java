@@ -1,6 +1,6 @@
 package panels;
 
-import dataset.data;
+import assets.dataset.data;
 
 import javax.swing.*;
 import java.awt.*;
