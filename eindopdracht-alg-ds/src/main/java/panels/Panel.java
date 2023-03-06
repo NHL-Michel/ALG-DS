@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public abstract class Panel {
     protected JPanel panel;
     protected ArrayList<Integer> dataset;
-    protected JButton build, sort1, sort2, search1, search2;
+    protected JButton build, search, sort;
+    protected JLabel executionTime;
     protected JTextArea inputBox;
     protected String dataSetString;
 

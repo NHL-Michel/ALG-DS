@@ -1,7 +1,5 @@
 package menu.assets;
 
-import menu.MenuController;
-
 import javax.swing.*;
 
 public class MenuFactory {

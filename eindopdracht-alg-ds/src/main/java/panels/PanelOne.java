@@ -1,6 +1,7 @@
 package panels;
 
 import assets.ComponentBuilder;
+import assets.time.ExecutionTime;
 import datastructures.linkedlist.LinkedL;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class PanelOne extends Panel {
         this.addActionListeners();
         this.buildParagraphs();
         this.buildInputFields();
+        this.buildExecutionTimeField(0.0);
     }
 
     /**
@@ -35,16 +37,12 @@ public class PanelOne extends Panel {
      */
     private void buildButtons(){
         build = ComponentBuilder.buildButton("Build Linked list", new Rectangle(400, 20, 325, 30));
-        sort1 = ComponentBuilder.buildButton("sort 1", new Rectangle(400, 60, 150, 30));
-        sort2 = ComponentBuilder.buildButton("sort 2", new Rectangle(575, 60, 150, 30));
-        search1 = ComponentBuilder.buildButton("search 1", new Rectangle(400, 140, 150, 30));
-        search2 = ComponentBuilder.buildButton("search 2", new Rectangle(575, 140, 150, 30));
+        search = ComponentBuilder.buildButton("Merge sort", new Rectangle(400, 60, 325, 30));
+        sort = ComponentBuilder.buildButton("Linear search", new Rectangle(400, 140, 325, 30));
 
         this.panel.add(build);
-        this.panel.add(sort1);
-        this.panel.add(sort2);
-        this.panel.add(search1);
-        this.panel.add(search2);
+        this.panel.add(search);
+        this.panel.add(sort);
     }
 
     /**
@@ -89,14 +87,21 @@ public class PanelOne extends Panel {
     }
 
     /**
+     * build the execution time for the application
+     * @param data
+     */
+    private void buildExecutionTimeField(double data){
+        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.2f", data), new Rectangle(400, 220, 400,50));
+        this.panel.add(executionTime);
+    }
+
+    /**
      * give all JButtons an action listener
      */
     private void addActionListeners(){
         this.build.addActionListener(event -> buildLinkedList());
-        this.sort1.addActionListener(event -> sortAlgorithmOne());
-        this.sort2.addActionListener(event -> sortAlgorithmTwo());
-        this.search1.addActionListener(event -> searchAlgorithmOne());
-        this.search2.addActionListener(event -> searchAlgorithmTwo());
+        this.search.addActionListener(event -> linearSearchEventListener());
+        this.sort.addActionListener(event -> mergeSortEventListener());
     }
 
     /**
@@ -104,21 +109,21 @@ public class PanelOne extends Panel {
      */
 
     private void buildLinkedList(){
-        JOptionPane.showMessageDialog(null,"test");
+        if (this.ll.getSize() != this.ll.getDataset().size()) {
+            this.updateComponent(this.executionTime, false);
+            this.buildExecutionTimeField(ExecutionTime.build(this.ll));
+            this.updateComponent(this.executionTime, true);
+            JOptionPane.showMessageDialog(null,"Linked list build!");
+        } else {
+            JOptionPane.showMessageDialog(null,"Linked list already build, cannot build again!");
+        }
     }
 
-    private void sortAlgorithmOne(){
+    private void linearSearchEventListener(){
 
     }
 
-    private void sortAlgorithmTwo(){
-
-    }
-
-    private void searchAlgorithmOne(){
-
-    }
-    private void searchAlgorithmTwo(){
+    private void mergeSortEventListener(){
 
     }
 
