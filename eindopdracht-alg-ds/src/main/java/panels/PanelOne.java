@@ -1,8 +1,6 @@
 package panels;
 
 import assets.ComponentBuilder;
-import assets.dataset.Person;
-import assets.interfaces.DataStructure;
 import assets.time.ExecutionTime;
 import datastructures.linkedlist.LinkedL;
 
@@ -40,12 +38,9 @@ public class PanelOne extends Panel {
      */
     private void buildButtons(){
         build = ComponentBuilder.buildButton("Build Linked list", new Rectangle(400, 20, 325, 30));
-        search = ComponentBuilder.buildButton("Merge sort", new Rectangle(400, 60, 325, 30));
-        sort = ComponentBuilder.buildButton("Linear search", new Rectangle(400, 140, 325, 30));
-
-        this.panel.add(build);
-        this.panel.add(search);
-        this.panel.add(sort);
+        sortAge = ComponentBuilder.buildButton("Merge sort age", new Rectangle(400, 60, 150, 30));
+        sortName = ComponentBuilder.buildButton("Merge sort name", new Rectangle(575, 60, 150, 30));
+        search = ComponentBuilder.buildButton("Linear search", new Rectangle(400, 140, 325, 30));
     }
 
     /**
@@ -104,7 +99,13 @@ public class PanelOne extends Panel {
     private void addActionListeners(){
         this.build.addActionListener(event -> buildLinkedList());
         this.search.addActionListener(event -> linearSearchEventListener());
-        this.sort.addActionListener(event -> mergeSortEventListener());
+        this.sortAge.addActionListener(event -> mergeSortEventListener());
+        this.sortName.addActionListener(event -> mergeSortEventListener());
+
+        this.panel.add(this.build);
+        this.panel.add(this.search);
+        this.panel.add(this.sortAge);
+        this.panel.add(this.sortName);
     }
 
     /**
@@ -124,7 +125,18 @@ public class PanelOne extends Panel {
     }
 
     private void linearSearchEventListener(){
+        String searchValue = this.inputBox.getText();
+        Object searchTerm;
 
+        if (isParsable(searchValue)){
+            searchTerm = Integer.parseInt(searchValue);
+        } else {
+            searchTerm = searchValue;
+        }
+
+        this.updateComponent(this.executionTime, false);
+        this.buildExecutionTimeField(ExecutionTime.calculateSearchTime(this.ll, searchTerm));
+        this.updateComponent(this.executionTime, true);
     }
 
     private void mergeSortEventListener(){
@@ -136,4 +148,12 @@ public class PanelOne extends Panel {
      */
 
     // utility
+    public static boolean isParsable(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (final NumberFormatException e) {
+            return false;
+        }
+    }
 }

@@ -2,26 +2,32 @@ package assets.time;
 
 import assets.interfaces.DataStructure;
 
+import javax.swing.*;
+
 public class ExecutionTime {
     public static double build(DataStructure d){
         long startTime = System.currentTimeMillis();
         d.build();
         long endTime = System.currentTimeMillis();
-        return miliSecondsToSeconds(endTime-startTime);
+        return miliSeconds(endTime-startTime);
     }
 
     public static <S> double calculateSearchTime(DataStructure d, S searchTerm){
         long startTime = System.currentTimeMillis();
-        d.search(searchTerm);
+        if (d.search(searchTerm)){
+            JOptionPane.showMessageDialog(null, "FOUND!");
+        } else {
+            JOptionPane.showMessageDialog(null, "NOT FOUND!");
+        }
         long endTime = System.currentTimeMillis();
-        return miliSecondsToSeconds(endTime-startTime);
+        return miliSeconds(endTime-startTime);
     }
 
-    public static double calculateSortTime(DataStructure d){
+    public static double calculateSortTime(DataStructure d, String type){
         long startTime = System.currentTimeMillis();
-        d.sort();
+        d.sort(type);
         long endTime = System.currentTimeMillis();
-        return miliSecondsToSeconds(endTime-startTime);
+        return miliSeconds(endTime-startTime);
     }
 
     private static double miliSecondsToSeconds(long elapsedTime){

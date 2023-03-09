@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public abstract class Panel {
     protected JPanel panel;
     protected ArrayList<Person> dataset;
-    protected JButton build, search, sort;
+    protected JButton build, search, sortAge, sortName;
     protected JLabel executionTime;
     protected JTextArea inputBox;
     protected String dataSetString;

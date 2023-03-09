@@ -13,7 +13,7 @@ public class LinkedL <S> implements DataStructure <S> {
     private Node tail;
 
     public LinkedL() {
-        this.dataset = Data.generateRandomPersons(10, 100);
+        this.dataset = Data.generateRandomPersons(4, 100);
     }
 
     // get the age of a person
@@ -41,8 +41,11 @@ public class LinkedL <S> implements DataStructure <S> {
     }
 
     @Override
-    public void sort() {
-
+    public void sort(String type) {
+        Node n = this.head;
+        while (n != null) {
+            n = n.getNext();
+        }
     }
 
     public ArrayList<Person> getDataset() {
@@ -94,7 +97,7 @@ public class LinkedL <S> implements DataStructure <S> {
         Node n = this.head;
         StringBuilder nodeString = new StringBuilder();
         while (n != null) {
-            nodeString.append(n + " > ");
+            nodeString.append("Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + " > ");
             n = n.getNext();
         }
         nodeString.append("NULL");
