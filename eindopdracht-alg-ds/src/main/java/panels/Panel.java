@@ -1,6 +1,7 @@
 package panels;
 
-import assets.dataset.data;
+import assets.dataset.Data;
+import assets.dataset.Person;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public abstract class Panel {
     protected JPanel panel;
-    protected ArrayList<Integer> dataset;
+    protected ArrayList<Person> dataset;
     protected JButton build, search, sort;
     protected JLabel executionTime;
     protected JTextArea inputBox;
@@ -16,7 +17,7 @@ public abstract class Panel {
 
     public Panel(){
         this.panel = new JPanel(null);
-        this.dataset = data.generateRandomDataset(10, 500);
+        this.dataset = Data.generateRandomPersons(10, 100);
         this.panel.setBackground(new Color(255, 255, 255));
     }
     public abstract void buildPanel();

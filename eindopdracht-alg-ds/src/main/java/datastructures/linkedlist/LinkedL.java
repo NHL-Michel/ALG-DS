@@ -1,23 +1,25 @@
 package datastructures.linkedlist;
 
-import assets.dataset.data;
+import assets.dataset.Data;
+import assets.dataset.Person;
 import assets.interfaces.DataStructure;
 
 import java.util.*;
 
 public class LinkedL implements DataStructure {
-    private ArrayList<Integer> dataset;
+    private ArrayList<Person> dataset;
     private Node head;
     private Node tail;
 
     public LinkedL() {
-        this.dataset = data.generateRandomDataset(50000, 500);
+        this.dataset = Data.generateRandomPersons(10, 100);
     }
 
+    // get the age of a person
     @Override
     public void build(){
-        for (Integer i : dataset) {
-            this.appendNode(i);
+        for (Person p : dataset) {
+            this.appendNode(p);
         }
     }
 
@@ -31,7 +33,7 @@ public class LinkedL implements DataStructure {
 
     }
 
-    public ArrayList<Integer> getDataset() {
+    public ArrayList<Person> getDataset() {
         return this.dataset;
     }
 
@@ -40,7 +42,7 @@ public class LinkedL implements DataStructure {
      *
      * @param data to be set in the linked list
      */
-    public void appendNode(int data) {
+    public void appendNode(Person data) {
         Node n = new Node(data);
 
         // check if it already contains nodes
@@ -74,5 +76,16 @@ public class LinkedL implements DataStructure {
         }
 
         return size;
+    }
+
+    public String getNodeLayout(){
+        Node n = this.head;
+        StringBuilder nodeString = new StringBuilder();
+        while (n != null) {
+            nodeString.append(n.getData().getName() + " > ");
+            n = n.getNext();
+        }
+        nodeString.append("NULL");
+        return nodeString.toString();
     }
 }

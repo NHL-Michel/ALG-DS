@@ -1,14 +1,16 @@
 package datastructures.linkedlist;
 
+import assets.dataset.Person;
+
 public class Node {
-    private int data;
+    private Person data;
     private Node next;
 
-    public Node(int data) {
+    public Node(Person data) {
         this.data = data;
     }
 
-    public int getData() {
+    public Person getData() {
         return this.data;
     }
 

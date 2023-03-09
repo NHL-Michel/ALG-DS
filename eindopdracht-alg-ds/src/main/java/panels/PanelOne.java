@@ -1,6 +1,8 @@
 package panels;
 
 import assets.ComponentBuilder;
+import assets.dataset.Person;
+import assets.interfaces.DataStructure;
 import assets.time.ExecutionTime;
 import datastructures.linkedlist.LinkedL;
 
@@ -9,6 +11,7 @@ import java.awt.*;
 
 public class PanelOne extends Panel {
     private LinkedL ll;
+    private String nodeLayout;
 
     public PanelOne(){
         this.ll = new LinkedL();
@@ -113,6 +116,7 @@ public class PanelOne extends Panel {
             this.updateComponent(this.executionTime, false);
             this.buildExecutionTimeField(ExecutionTime.build(this.ll));
             this.updateComponent(this.executionTime, true);
+            this.updateComponent(ComponentBuilder.buildParagraph(this.ll.getNodeLayout(), new Rectangle(100, 550, 1000,50)), true);
             JOptionPane.showMessageDialog(null,"Linked list build!");
         } else {
             JOptionPane.showMessageDialog(null,"Linked list already build, cannot build again!");
@@ -130,4 +134,6 @@ public class PanelOne extends Panel {
     /**
      * end action listeners
      */
+
+    // utility
 }
