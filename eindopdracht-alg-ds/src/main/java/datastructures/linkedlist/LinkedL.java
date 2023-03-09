@@ -3,6 +3,7 @@ package datastructures.linkedlist;
 import assets.dataset.Data;
 import assets.dataset.Person;
 import assets.interfaces.DataStructure;
+import com.github.javafaker.Bool;
 
 import java.util.*;
 
@@ -24,8 +25,19 @@ public class LinkedL <S> implements DataStructure <S> {
     }
 
     @Override
-    public void search(S searchTerm) {
+    public boolean search(S searchTerm) {
+        Node n = this.head;
 
+        while (n != null) {
+            Person person = n.getData();
+            Integer age = n.getData().getAge();
+            String name = n.getData().getName();
+            if (person.equals(searchTerm) || age.equals(searchTerm) || name.equals(searchTerm)) {
+                return true;
+            }
+            n = n.getNext();
+        }
+        return false;
     }
 
     @Override

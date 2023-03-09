@@ -2,7 +2,7 @@ package assets.interfaces;
 
 public interface DataStructure <S> {
     void build();
-    void search(S searchterm);
+    boolean search(S searchterm);
     void sort();
 
 }
