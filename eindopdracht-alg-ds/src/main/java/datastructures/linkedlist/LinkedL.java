@@ -6,7 +6,7 @@ import assets.interfaces.DataStructure;
 
 import java.util.*;
 
-public class LinkedL implements DataStructure {
+public class LinkedL <S> implements DataStructure <S> {
     private ArrayList<Person> dataset;
     private Node head;
     private Node tail;
@@ -24,7 +24,7 @@ public class LinkedL implements DataStructure {
     }
 
     @Override
-    public void search() {
+    public void search(S searchTerm) {
 
     }
 
@@ -82,7 +82,7 @@ public class LinkedL implements DataStructure {
         Node n = this.head;
         StringBuilder nodeString = new StringBuilder();
         while (n != null) {
-            nodeString.append(n.getData().getName() + " > ");
+            nodeString.append(n + " > ");
             n = n.getNext();
         }
         nodeString.append("NULL");

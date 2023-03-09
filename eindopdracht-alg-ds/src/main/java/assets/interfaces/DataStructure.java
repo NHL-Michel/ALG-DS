@@ -1,8 +1,8 @@
 package assets.interfaces;
 
-public interface DataStructure {
+public interface DataStructure <S> {
     void build();
-    void search();
+    void search(S searchterm);
     void sort();
 
 }

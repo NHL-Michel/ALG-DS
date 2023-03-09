@@ -10,9 +10,9 @@ public class ExecutionTime {
         return miliSecondsToSeconds(endTime-startTime);
     }
 
-    public static double calculateSearchTime(DataStructure d){
+    public static <S> double calculateSearchTime(DataStructure d, S searchTerm){
         long startTime = System.currentTimeMillis();
-        d.search();
+        d.search(searchTerm);
         long endTime = System.currentTimeMillis();
         return miliSecondsToSeconds(endTime-startTime);
     }
