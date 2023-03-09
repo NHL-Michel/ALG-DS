@@ -38,8 +38,8 @@ public class PanelOne extends Panel {
      */
     private void buildButtons(){
         build = ComponentBuilder.buildButton("Build Linked list", new Rectangle(400, 20, 325, 30));
-        sortAge = ComponentBuilder.buildButton("Merge sort age", new Rectangle(400, 60, 150, 30));
-        sortName = ComponentBuilder.buildButton("Merge sort name", new Rectangle(575, 60, 150, 30));
+        sortAge = ComponentBuilder.buildButton("Bubble sort age", new Rectangle(400, 60, 150, 30));
+        sortName = ComponentBuilder.buildButton("Bubble sort name", new Rectangle(575, 60, 150, 30));
         search = ComponentBuilder.buildButton("Linear search", new Rectangle(400, 140, 325, 30));
     }
 
@@ -56,10 +56,9 @@ public class PanelOne extends Panel {
                                                                         <ol>
                                                                             <li> Generate the dataset (automatically) </li>
                                                                             <li> Build the linked list </li>
-                                                                            <li> Sort the linked list using ..... </li>
-                                                                            <li> Sort the linked list using ..... </li>
-                                                                            <li> Search through the linked list using ..... </li>                                                                            
-                                                                            <li> Search through the linked list using ..... </li>                                                                            
+                                                                            <li> Sort the linked list by name </li>
+                                                                            <li> Sort the linked list by age </li>
+                                                                            <li> Search through the linked list by name or age </li>                                                                                                                                                      
                                                                         </ol>
                                                                     </p>
                                                                 </html>
@@ -89,7 +88,7 @@ public class PanelOne extends Panel {
      * @param data
      */
     private void buildExecutionTimeField(double data){
-        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.2f", data), new Rectangle(400, 220, 400,50));
+        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.2f (nanoseconds in terminal)", data), new Rectangle(400, 220, 400,50));
         this.panel.add(executionTime);
     }
 
@@ -99,14 +98,15 @@ public class PanelOne extends Panel {
     private void addActionListeners(){
         this.build.addActionListener(event -> buildLinkedList());
         this.search.addActionListener(event -> linearSearchEventListener());
-        this.sortAge.addActionListener(event -> mergeSortEventListener());
-        this.sortName.addActionListener(event -> mergeSortEventListener());
+        this.sortAge.addActionListener(event -> bubbleSortEventListener("age", 600));
+        this.sortName.addActionListener(event -> bubbleSortEventListener("name", 650));
 
         this.panel.add(this.build);
         this.panel.add(this.search);
         this.panel.add(this.sortAge);
         this.panel.add(this.sortName);
     }
+
 
     /**
      * start action listeners
@@ -117,7 +117,8 @@ public class PanelOne extends Panel {
             this.updateComponent(this.executionTime, false);
             this.buildExecutionTimeField(ExecutionTime.build(this.ll));
             this.updateComponent(this.executionTime, true);
-            this.updateComponent(ComponentBuilder.buildParagraph(this.ll.getNodeLayout(), new Rectangle(100, 550, 1000,50)), true);
+            this.nodeLayout = this.ll.getNodeLayout();
+            this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, 550, 1000,50)), true);
             JOptionPane.showMessageDialog(null,"Linked list build!");
         } else {
             JOptionPane.showMessageDialog(null,"Linked list already build, cannot build again!");
@@ -139,15 +140,18 @@ public class PanelOne extends Panel {
         this.updateComponent(this.executionTime, true);
     }
 
-    private void mergeSortEventListener(){
-
+    private void bubbleSortEventListener(String parameter, int height){
+        this.updateComponent(this.executionTime, false);
+        this.buildExecutionTimeField(ExecutionTime.calculateSortTime(this.ll, parameter));
+        this.updateComponent(this.executionTime, true);
+        this.nodeLayout = this.ll.getNodeLayout();
+        this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50)), true);
     }
 
     /**
      * end action listeners
      */
 
-    // utility
     public static boolean isParsable(String input) {
         try {
             Integer.parseInt(input);

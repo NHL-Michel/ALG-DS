@@ -3,40 +3,40 @@ package assets.time;
 import assets.interfaces.DataStructure;
 
 import javax.swing.*;
+import java.util.concurrent.TimeUnit;
 
 public class ExecutionTime {
     public static double build(DataStructure d){
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         d.build();
-        long endTime = System.currentTimeMillis();
-        return miliSeconds(endTime-startTime);
+        long endTime = System.nanoTime();
+        System.err.println(endTime - startTime);
+        return TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
     }
 
     public static <S> double calculateSearchTime(DataStructure d, S searchTerm){
-        long startTime = System.currentTimeMillis();
-        if (d.search(searchTerm)){
+        long startTime = System.nanoTime();
+        Boolean result = d.search(searchTerm);
+        long endTime = System.nanoTime();
+        if (result){
             JOptionPane.showMessageDialog(null, "FOUND!");
         } else {
             JOptionPane.showMessageDialog(null, "NOT FOUND!");
         }
-        long endTime = System.currentTimeMillis();
-        return miliSeconds(endTime-startTime);
+        System.err.println(endTime - startTime);
+        return TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
     }
 
     public static double calculateSortTime(DataStructure d, String type){
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         d.sort(type);
-        long endTime = System.currentTimeMillis();
-        return miliSeconds(endTime-startTime);
+        long endTime = System.nanoTime();
+        System.err.println(endTime - startTime);
+        return TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
     }
 
     private static double miliSecondsToSeconds(long elapsedTime){
         long timeInSeconds = elapsedTime / 1000;
-        System.err.println(Math.round(timeInSeconds * 100.0) / 100.0);
         return Math.round(timeInSeconds * 100.0) / 100.0;
-    }
-
-    private static double miliSeconds(long elapsedTime){
-        return Math.round(elapsedTime * 100.0) / 100.0;
     }
 }

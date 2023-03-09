@@ -13,7 +13,7 @@ public class LinkedL <S> implements DataStructure <S> {
     private Node tail;
 
     public LinkedL() {
-        this.dataset = Data.generateRandomPersons(4, 100);
+        this.dataset = Data.generateRandomPersons(5, 100);
     }
 
     // get the age of a person
@@ -29,10 +29,9 @@ public class LinkedL <S> implements DataStructure <S> {
         Node n = this.head;
 
         while (n != null) {
-            Person person = n.getData();
             Integer age = n.getData().getAge();
             String name = n.getData().getName();
-            if (person.equals(searchTerm) || age.equals(searchTerm) || name.equals(searchTerm)) {
+            if (age.equals(searchTerm) || name.equals(searchTerm)) {
                 return true;
             }
             n = n.getNext();
@@ -42,11 +41,78 @@ public class LinkedL <S> implements DataStructure <S> {
 
     @Override
     public void sort(String type) {
-        Node n = this.head;
-        while (n != null) {
-            n = n.getNext();
+        if (this.head == null || this.head.getNext() == null) {
+            return;
+        }
+
+        boolean swapped = true;
+
+        while (swapped) {
+            swapped = false;
+            Node prev = null;
+            Node curr = this.head;
+            Node next = curr.getNext();
+
+            if (type.equals("age")){
+                swapped = this.sortByAge(next, curr, prev, swapped);
+            } else if (type.equals("name")) {
+                swapped = this.sortByName(next, curr, prev, swapped);
+            }
         }
     }
+
+    private Boolean sortByAge(Node next, Node curr, Node prev, Boolean swapped){
+        while (next != null) {
+            if (curr.getData().getAge() > next.getData().getAge()) {
+                swapped = true;
+
+                if (prev != null) {
+                    prev.setNext(next);
+                } else {
+                    this.head = next;
+                }
+
+                curr.setNext(next.getNext());
+                next.setNext(curr);
+
+                Node temp = curr;
+                curr = next;
+                next = temp;
+            }
+
+            prev = curr;
+            curr = curr.getNext();
+            next = next.getNext();
+        }
+        return swapped;
+    }
+
+    private Boolean sortByName(Node next, Node curr, Node prev, Boolean swapped){
+        while (next != null) {
+            if (curr.getData().getName().compareTo(curr.next.getData().getName()) > 0) {
+                swapped = true;
+
+                if (prev != null) {
+                    prev.setNext(next);
+                } else {
+                    this.head = next;
+                }
+
+                curr.setNext(next.getNext());
+                next.setNext(curr);
+
+                Node temp = curr;
+                curr = next;
+                next = temp;
+            }
+
+            prev = curr;
+            curr = curr.getNext();
+            next = next.getNext();
+        }
+        return swapped;
+    }
+
 
     public ArrayList<Person> getDataset() {
         return this.dataset;
@@ -97,7 +163,7 @@ public class LinkedL <S> implements DataStructure <S> {
         Node n = this.head;
         StringBuilder nodeString = new StringBuilder();
         while (n != null) {
-            nodeString.append("Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + " > ");
+            nodeString.append("{Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + "} > ");
             n = n.getNext();
         }
         nodeString.append("NULL");
