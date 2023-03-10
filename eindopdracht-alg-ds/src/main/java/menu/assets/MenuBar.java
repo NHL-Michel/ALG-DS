@@ -7,7 +7,7 @@ public class MenuBar {
 
     // menu items
     public static final String PAGE_ONE = "Linked list";
-    public static final String PAGE_TWO = "Page 2";
-    public static final String PAGE_THREE = "Page 3";
+    public static final String PAGE_TWO = "Doubly linked list";
+    public static final String PAGE_THREE = "Binary tree";
 
 }

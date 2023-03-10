@@ -58,7 +58,7 @@ public class MenuController {
     }
 
     private void helpListener(){
-        JOptionPane.showMessageDialog(null, "hoi");
+        JOptionPane.showMessageDialog(null, "Send help");
     }
 
     // update panel to JFrame
