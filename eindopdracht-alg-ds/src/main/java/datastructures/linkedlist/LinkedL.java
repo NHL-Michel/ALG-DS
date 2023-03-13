@@ -163,7 +163,7 @@ public class LinkedL <S> implements DataStructure <S> {
         Node n = this.head;
         StringBuilder nodeString = new StringBuilder();
         while (n != null) {
-            nodeString.append("{Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + "} > ");
+            nodeString.append("{Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + "} <> ");
             n = n.getNext();
         }
         nodeString.append("NULL");

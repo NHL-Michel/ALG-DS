@@ -1,6 +1,8 @@
 package panels;
 
 import assets.ComponentBuilder;
+import assets.time.ExecutionTime;
+import datastructures.doublylinkedlist.DoublyLinkedL;
 import datastructures.linkedlist.LinkedL;
 
 import javax.swing.*;
@@ -8,11 +10,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PanelTwo extends Panel {
-    private datastructures.doublyLinkedList.DoublyLinkedList dll;
+    private DoublyLinkedL dll;
     private String nodeLayout;
 
     public PanelTwo(){
+        this.dll = new DoublyLinkedL();
+        this.dataSetString = this.dll.getDataset().toString();
         this.buildPanel();
+
     }
     @Override
     public void buildPanel(){
@@ -25,6 +30,8 @@ public class PanelTwo extends Panel {
     }
 
     private void addActionListeners(){
+        this.build.addActionListener(event -> buildDoublyLinkedList());
+
         this.panel.add(this.build);
         this.panel.add(this.search);
         this.panel.add(this.sortAge);
@@ -95,5 +102,18 @@ public class PanelTwo extends Panel {
     private void buildExecutionTimeField(double data){
         this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.2f (nanoseconds in terminal)", data), new Rectangle(400, 220, 400,50));
         this.panel.add(executionTime);
+    }
+
+    private void buildDoublyLinkedList(){
+        if (this.dll.getSize() != this.dll.getDataset().size()) {
+            this.updateComponent(this.executionTime, false);
+            this.buildExecutionTimeField(ExecutionTime.build(this.dll));
+            this.updateComponent(this.executionTime, true);
+            this.nodeLayout = this.dll.getNodeLayout();
+            this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, 550, 1000,50)), true);
+            JOptionPane.showMessageDialog(null,"Doubly Linked list build!");
+        } else {
+            JOptionPane.showMessageDialog(null,"Doubly Linked list already build, cannot build again!");
+        }
     }
 }

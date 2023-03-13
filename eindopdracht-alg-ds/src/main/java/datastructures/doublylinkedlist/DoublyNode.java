@@ -3,19 +3,24 @@ package datastructures.doublylinkedlist;
 import assets.dataset.Person;
 import datastructures.linkedlist.Node;
 
-public class DoublyNode extends Node {
-
-    private DoublyNode prev;
+public class DoublyNode {
+    protected Person data;
+    protected DoublyNode next;
+    protected DoublyNode prev;
 
     public DoublyNode(Person data) {
-        super(data);
+        this.data = data;
     }
 
-    public DoublyNode getPrev() {
-        return this.prev;
+    public Person getData() {
+        return this.data;
     }
 
-    public void setPrev(DoublyNode prev) {
-        this.prev = prev;
+    public DoublyNode getNext() {
+        return this.next;
+    }
+
+    public void setNext(DoublyNode next) {
+        this.next = next;
     }
 }
