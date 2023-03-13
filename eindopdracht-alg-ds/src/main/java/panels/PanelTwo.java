@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static panels.PanelOne.isParsable;
+
 public class PanelTwo extends Panel {
     private DoublyLinkedL dll;
     private String nodeLayout;
@@ -32,10 +34,37 @@ public class PanelTwo extends Panel {
     private void addActionListeners(){
         this.build.addActionListener(event -> buildDoublyLinkedList());
 
+        this.search.addActionListener(event -> linearSearchEventListener());
+        this.sortAge.addActionListener(event -> bubbleSortEventListener("age", 600));
+        this.sortName.addActionListener(event -> bubbleSortEventListener("name", 650));
+
         this.panel.add(this.build);
         this.panel.add(this.search);
         this.panel.add(this.sortAge);
         this.panel.add(this.sortName);
+    }
+
+    private void linearSearchEventListener(){
+        String searchValue = this.inputBox.getText();
+        Object searchTerm;
+
+        if (isParsable(searchValue)){
+            searchTerm = Integer.parseInt(searchValue);
+        } else {
+            searchTerm = searchValue;
+        }
+
+        this.updateComponent(this.executionTime, false);
+        this.buildExecutionTimeField(ExecutionTime.calculateSearchTime(this.dll, searchTerm));
+        this.updateComponent(this.executionTime, true);
+    }
+
+    private void bubbleSortEventListener(String parameter, int height){
+        this.updateComponent(this.executionTime, false);
+        this.buildExecutionTimeField(ExecutionTime.calculateSortTime(this.dll, parameter));
+        this.updateComponent(this.executionTime, true);
+        this.nodeLayout = this.dll.getNodeLayout();
+        this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50)), true);
     }
 
     /**

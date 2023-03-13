@@ -3,10 +3,11 @@ package datastructures.doublylinkedlist;
 import assets.dataset.Data;
 import assets.dataset.Person;
 import assets.interfaces.DataStructure;
+import datastructures.linkedlist.Node;
 
 import java.util.ArrayList;
 
-public class DoublyLinkedL implements DataStructure {
+public class DoublyLinkedL <S> implements DataStructure <S> {
     private ArrayList<Person> dataset;
     private DoublyNode head;
     private DoublyNode tail;
@@ -83,14 +84,18 @@ public class DoublyLinkedL implements DataStructure {
                 System.out.println("prev is: " + n.prev.data.getName());
             }
             System.out.println("cur is:" + n.data.getName());
-            System.out.println("next is: " + n.next.data.getName());
+            if (n.next == null) {
+                System.out.println("next is: null");
+            } else {
+                System.out.println("next is: " + n.next.data.getName());
+            }
             System.out.println("/////////////////////////");
             //Print each node and then go to next.
             nodeString.append("{Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + "} > ");
             n = n.getNext();
         }
         nodeString.append("NULL");
-        System.out.println(nodeString.toString());
+        System.out.println(nodeString);
         return nodeString.toString();
     }
 
@@ -102,13 +107,89 @@ public class DoublyLinkedL implements DataStructure {
     }
 
     @Override
-    public boolean search(Object searchterm) {
+    public boolean search(S searchTerm) {
+        DoublyNode n = this.head;
+
+        while (n != null) {
+            Integer age = n.getData().getAge();
+            String name = n.getData().getName();
+            if (age.equals(searchTerm) || name.equals(searchTerm)) {
+                return true;
+            }
+            n = n.getNext();
+        }
         return false;
     }
 
-    @Override
     public void sort(String type) {
+        if (this.head == null || this.head.getNext() == null) {
+            return;
+        }
 
+        boolean swapped = true;
+
+        while (swapped) {
+            swapped = false;
+            DoublyNode curr = this.head;
+            DoublyNode next = curr.getNext();
+
+            if (type.equals("age")){
+                swapped = this.sortByAge(next, curr, curr.prev, swapped);
+            } else if (type.equals("name")) {
+                swapped = this.sortByName(next, curr, curr.prev, swapped);
+            }
+        }
+    }
+
+    private Boolean sortByAge(DoublyNode next, DoublyNode curr, DoublyNode prev, Boolean swapped){
+        while (next != null) {
+            if (curr.getData().getAge() > next.getData().getAge()) {
+                swapped = true;
+
+                if (prev != null) {
+                    prev.setNext(next);
+                } else {
+                    this.head = next;
+                }
+
+                curr.setNext(next.getNext());
+                next.setNext(curr);
+
+                DoublyNode temp = curr;
+                curr = next;
+                next = temp;
+            }
+
+            prev = curr;
+            curr = curr.getNext();
+            next = next.getNext();
+        }
+        return swapped;
+    }
+
+    private Boolean sortByName(DoublyNode next, DoublyNode curr, DoublyNode prev, Boolean swapped){
+        while (next != null) {
+            if (curr.getData().getName().compareTo(curr.next.getData().getName()) > 0) {
+                swapped = true;
+
+                if (prev != null) {
+                    prev.setNext(next);
+                } else {
+                    this.head = next;
+                }
+
+                curr.setNext(next.getNext());
+                next.setNext(curr);
+
+                DoublyNode temp = curr;
+                curr = next;
+                next = temp;
+            }
+
+            prev = curr;
+            curr = curr.getNext();
+            next = next.getNext();
+        }
+        return swapped;
     }
 }
-
