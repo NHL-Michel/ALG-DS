@@ -18,16 +18,6 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         this.head = null;
         this.tail = null;
     }
-
-    public DoublyNode getNode(int index) {
-        DoublyNode currentNode = this.head;
-        for (int i = 0; i < index; i++) {
-            currentNode = currentNode.getNext();
-        }
-
-        return currentNode;
-    }
-
     public void add(Person value) {
         //Check if index is out of bounds
         // create new node
@@ -77,6 +67,7 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
             return null;
         }
         System.out.println("Nodes of doubly linked list: ");
+        System.out.println("/////////////////////////");
         while (n != null) {
             if (n.prev == null) {
                 System.out.println("prev is: null");
@@ -95,7 +86,6 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
             n = n.getNext();
         }
         nodeString.append("NULL");
-        System.out.println(nodeString);
         return nodeString.toString();
     }
 
@@ -104,6 +94,7 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         for (Person p : this.dataset) {
             this.add(p);
         }
+        System.out.println(this.getNodeLayout());
     }
 
     @Override
@@ -118,6 +109,8 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
             }
             n = n.getNext();
         }
+
+
         return false;
     }
 
@@ -134,62 +127,72 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
             DoublyNode next = curr.getNext();
 
             if (type.equals("age")){
-                swapped = this.sortByAge(next, curr, curr.prev, swapped);
+                swapped = this.sortByAge(curr);
+
             } else if (type.equals("name")) {
-                swapped = this.sortByName(next, curr, curr.prev, swapped);
+                swapped = this.sortByName(curr);
             }
+
+            System.out.println(this.getNodeLayout());
         }
+
+
     }
 
-    private Boolean sortByAge(DoublyNode next, DoublyNode curr, DoublyNode prev, Boolean swapped){
-        while (next != null) {
-            if (curr.getData().getAge() > next.getData().getAge()) {
-                swapped = true;
+    private Boolean sortByAge(DoublyNode head){
+        Boolean swapped;
+        DoublyNode curNode;
+        DoublyNode loopNode = null;
 
-                if (prev != null) {
-                    prev.setNext(next);
-                } else {
-                    this.head = next;
+        // Checking for empty list
+        do
+        {
+            swapped = false;
+            curNode = head;
+
+            while (curNode.next != loopNode)
+            {
+                if (curNode.getData().getAge() > curNode.next.getData().getAge())
+                {
+                    Person t = curNode.data;
+                    curNode.data = curNode.next.data;
+                    curNode.next.data = t;
+                    swapped = true;
                 }
-
-                curr.setNext(next.getNext());
-                next.setNext(curr);
-
-                DoublyNode temp = curr;
-                curr = next;
-                next = temp;
+                curNode = curNode.next;
             }
+            loopNode = curNode;
+        } while (swapped);
 
-            prev = curr;
-            curr = curr.getNext();
-            next = next.getNext();
-        }
         return swapped;
     }
 
-    private Boolean sortByName(DoublyNode next, DoublyNode curr, DoublyNode prev, Boolean swapped){
-        while (next != null) {
-            if (curr.getData().getName().compareTo(curr.next.getData().getName()) > 0) {
-                swapped = true;
+    private Boolean sortByName(DoublyNode head){
+        Boolean swapped;
+        DoublyNode curNode;
+        DoublyNode loopNode = null;
 
-                if (prev != null) {
-                    prev.setNext(next);
-                } else {
-                    this.head = next;
+        // Checking for empty list
+        do
+        {
+            swapped = false;
+            curNode = head;
+
+            while (curNode.next != loopNode)
+            {
+                if (curNode.getData().getName().compareTo(curNode.next.getData().getName()) > 0)
+                {
+                    Person t = curNode.data;
+                    curNode.data = curNode.next.data;
+                    curNode.next.data = t;
+                    swapped = true;
                 }
-
-                curr.setNext(next.getNext());
-                next.setNext(curr);
-
-                DoublyNode temp = curr;
-                curr = next;
-                next = temp;
+                curNode = curNode.next;
             }
-
-            prev = curr;
-            curr = curr.getNext();
-            next = next.getNext();
+            loopNode = curNode;
         }
+        while (swapped);
+
         return swapped;
     }
 }
