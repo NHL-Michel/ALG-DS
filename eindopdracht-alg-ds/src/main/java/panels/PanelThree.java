@@ -1,12 +1,22 @@
 package panels;
 
 import assets.ComponentBuilder;
+import assets.time.ExecutionTime;
+import datastructures.BinaryTree.BinaryTree;
 
 import javax.swing.*;
 import java.awt.*;
 
+import static panels.PanelOne.isParsable;
+
 public class PanelThree extends Panel  {
+
+    private BinaryTree tree;
+    private String nodeLayout;
+
     public PanelThree(){
+        this.tree = new BinaryTree();
+        this.dataSetString = this.tree.getDataset().toString();
         this.buildPanel();
     }
     @Override
@@ -20,10 +30,35 @@ public class PanelThree extends Panel  {
     }
 
     private void addActionListeners(){
+        this.build.addActionListener(event -> buildBinaryTreeList());
+
+        this.search.addActionListener(event -> linearSearchEventListener());
+        this.sortAge.addActionListener(event -> bubbleSortEventListener("age", 600));
+        this.sortName.addActionListener(event -> bubbleSortEventListener("name", 650));
+
         this.panel.add(this.build);
         this.panel.add(this.search);
         this.panel.add(this.sortAge);
         this.panel.add(this.sortName);
+    }
+
+    private void bubbleSortEventListener(String age, int height) {
+    }
+
+    private void linearSearchEventListener() {
+        String searchValue = this.inputBox.getText();
+        Object searchTerm;
+
+        if (isParsable(searchValue)){
+            searchTerm = Integer.parseInt(searchValue);
+        } else {
+            searchTerm = searchValue;
+        }
+
+        this.updateComponent(this.executionTime, false);
+        this.buildExecutionTimeField(ExecutionTime.calculateSearchTime(this.tree, searchTerm));
+        this.updateComponent(this.executionTime, true);
+
     }
 
     /**
@@ -40,7 +75,7 @@ public class PanelThree extends Panel  {
         build = ComponentBuilder.buildButton("Build binary tree", new Rectangle(400, 20, 325, 30));
         sortAge = ComponentBuilder.buildButton("Bubble sort age", new Rectangle(400, 60, 150, 30));
         sortName = ComponentBuilder.buildButton("Bubble sort name", new Rectangle(575, 60, 150, 30));
-        search = ComponentBuilder.buildButton("Linear search", new Rectangle(400, 140, 325, 30));
+        search = ComponentBuilder.buildButton("Depth first search", new Rectangle(400, 140, 325, 30));
     }
 
     /**
@@ -90,5 +125,19 @@ public class PanelThree extends Panel  {
     private void buildExecutionTimeField(double data){
         this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.2f (nanoseconds in terminal)", data), new Rectangle(400, 220, 400,50));
         this.panel.add(executionTime);
+    }
+
+    private void buildBinaryTreeList(){
+        if (this.tree.getRoot() == null) {
+            this.updateComponent(this.executionTime, false);
+            this.buildExecutionTimeField(ExecutionTime.build(this.tree));
+            this.updateComponent(this.executionTime, true);
+            this.nodeLayout = this.tree.getTreeLayout();
+            System.out.println(this.nodeLayout);
+            this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, 550, 1000,50)), true);
+            JOptionPane.showMessageDialog(null,"Binary Tree is build!");
+        } else {
+            JOptionPane.showMessageDialog(null,"Binary Tree is already build, cannot build again!");
+        }
     }
 }

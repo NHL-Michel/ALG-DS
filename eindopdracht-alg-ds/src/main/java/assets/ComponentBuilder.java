@@ -20,6 +20,7 @@ public class ComponentBuilder {
         return l;
     }
 
+
     /**
      * build a paragraph - uses standard styling
      * @param content content of the paragraph
