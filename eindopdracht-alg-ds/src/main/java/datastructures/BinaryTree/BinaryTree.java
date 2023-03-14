@@ -35,8 +35,6 @@ public class BinaryTree<S> implements DataStructure<S> {
             System.out.println("Tree layout list is empty");
             return null;
         }
-
-
         System.out.println("Tree layout: ");
 
         String treeLayout = this.printInorder(this.root, "", true);
@@ -54,7 +52,7 @@ public class BinaryTree<S> implements DataStructure<S> {
                 sb.append("├─");
                 indent += "│ ";
             }
-            sb.append(node.getData().getName()).append("\n");
+            sb.append("Name: ").append(node.getData().getName()).append(", Age: ").append(node.getData().getAge()).append("\n");
             sb.append(printInorder(node.getLeft(), indent, false));
             sb.append(printInorder(node.getRight(), indent, true));
         }

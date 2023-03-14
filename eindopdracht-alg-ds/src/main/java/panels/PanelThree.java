@@ -133,7 +133,6 @@ public class PanelThree extends Panel  {
             this.buildExecutionTimeField(ExecutionTime.build(this.tree));
             this.updateComponent(this.executionTime, true);
             this.nodeLayout = this.tree.getTreeLayout();
-            System.out.println(this.nodeLayout);
             this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, 550, 1000,50)), true);
             JOptionPane.showMessageDialog(null,"Binary Tree is build!");
         } else {
