@@ -5,6 +5,7 @@ import menu.assets.MenuBar;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import panels.assets.PanelFactory;
 
@@ -14,6 +15,7 @@ public class MenuController {
     private JMenu pageMenu, helpMenu;
     public MenuController(JFrame frame){
         this.frame = frame;
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.mb = new JMenuBar();
         this.create();
     }
@@ -68,5 +70,7 @@ public class MenuController {
         this.frame.getContentPane().revalidate();
         this.frame.repaint();
     }
+
+
     // end listener section
 }
