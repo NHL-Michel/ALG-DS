@@ -11,7 +11,7 @@ public class ExecutionTime {
         d.build();
         long endTime = System.nanoTime();
         System.err.println(endTime - startTime);
-        return TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
+        return endTime - startTime;
     }
 
     public static <S> double calculateSearchTime(DataStructure d, S searchTerm){
@@ -24,7 +24,7 @@ public class ExecutionTime {
             JOptionPane.showMessageDialog(null, "NOT FOUND!");
         }
         System.err.println(endTime - startTime);
-        return TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
+        return endTime - startTime;
     }
 
     public static double calculateSortTime(DataStructure d, String type){
@@ -32,7 +32,7 @@ public class ExecutionTime {
         d.sort(type);
         long endTime = System.nanoTime();
         System.err.println(endTime - startTime);
-        return TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
+        return endTime - startTime;
     }
 
     private static double miliSecondsToSeconds(long elapsedTime){

@@ -123,7 +123,7 @@ public class PanelThree extends Panel  {
      * @param data
      */
     private void buildExecutionTimeField(double data){
-        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.2f (nanoseconds in terminal)", data), new Rectangle(400, 220, 400,50));
+        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.1f MS (%f nanoseconds)", data / 1000000, data), new Rectangle(400, 220, 400,50));
         this.panel.add(executionTime);
     }
 
