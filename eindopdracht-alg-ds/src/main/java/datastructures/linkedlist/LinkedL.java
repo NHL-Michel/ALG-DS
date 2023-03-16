@@ -54,16 +54,16 @@ public class LinkedL <S> implements DataStructure <S> {
             Node next = curr.getNext();
 
             if (type.equals("age")){
-                swapped = this.sortByAge(next, curr, prev, swapped);
+                swapped = this.bubbleSort(next, curr, prev, swapped, curr.getData().getAge() > next.getData().getAge());
             } else if (type.equals("name")) {
-                swapped = this.sortByName(next, curr, prev, swapped);
+                swapped = this.bubbleSort(next, curr, prev, swapped, curr.getData().getName().compareTo(curr.next.getData().getName()) > 0);
             }
         }
     }
 
-    private Boolean sortByAge(Node next, Node curr, Node prev, Boolean swapped){
+    private Boolean bubbleSort(Node next, Node curr, Node prev, Boolean swapped, Boolean comparison){
         while (next != null) {
-            if (curr.getData().getAge() > next.getData().getAge()) {
+            if (comparison) {
                 swapped = true;
 
                 if (prev != null) {
@@ -86,33 +86,6 @@ public class LinkedL <S> implements DataStructure <S> {
         }
         return swapped;
     }
-
-    private Boolean sortByName(Node next, Node curr, Node prev, Boolean swapped){
-        while (next != null) {
-            if (curr.getData().getName().compareTo(curr.next.getData().getName()) > 0) {
-                swapped = true;
-
-                if (prev != null) {
-                    prev.setNext(next);
-                } else {
-                    this.head = next;
-                }
-
-                curr.setNext(next.getNext());
-                next.setNext(curr);
-
-                Node temp = curr;
-                curr = next;
-                next = temp;
-            }
-
-            prev = curr;
-            curr = curr.getNext();
-            next = next.getNext();
-        }
-        return swapped;
-    }
-
 
     public ArrayList<Person> getDataset() {
         return this.dataset;
@@ -163,7 +136,7 @@ public class LinkedL <S> implements DataStructure <S> {
         Node n = this.head;
         StringBuilder nodeString = new StringBuilder();
         while (n != null) {
-            nodeString.append("{Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + "} <> ");
+            nodeString.append("{Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + "} > ");
             n = n.getNext();
         }
         nodeString.append("NULL");
