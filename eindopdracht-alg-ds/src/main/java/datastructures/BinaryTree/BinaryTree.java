@@ -8,14 +8,18 @@ import datastructures.doublylinkedlist.DoublyNode;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import static datastructures.BinaryTree.ConvertBtTOBst.convertBtToBstForName;
+import static datastructures.BinaryTree.ConvertBtTOBst.convertBtToBstForNumbers;
+
 public class BinaryTree<S> implements DataStructure<S> {
 
     ArrayList<Person> dataset;
     private Node root;
+    private String treeLayout;
 
     public BinaryTree() {
         this.root = null;
-        this.dataset = Data.generateRandomPersons(5, 100);
+        this.dataset = Data.generateRandomPersons(50, 100);
     }
 
     @Override
@@ -23,6 +27,7 @@ public class BinaryTree<S> implements DataStructure<S> {
         for (Person p : this.dataset) {
             this.add(p, this.root);
         }
+        this.setTreeLayout();
         System.out.println(this.getTreeLayout());
     }
 
@@ -30,18 +35,21 @@ public class BinaryTree<S> implements DataStructure<S> {
         return this.dataset;
     }
 
-    public String getTreeLayout() {
+    public void setTreeLayout() {
         if (this.root == null) {
             System.out.println("Tree layout list is empty");
-            return null;
         }
         System.out.println("Tree layout: ");
+        this.treeLayout = this.printInorder(this.root, "", true);
 
-        String treeLayout = this.printInorder(this.root, "", true);
-        return treeLayout;
     }
 
-    public String printInorder(Node node, String indent, boolean last) {
+    public String getTreeLayout() {
+
+        return this.treeLayout;
+    }
+
+    public static String printInorder(Node node, String indent, boolean last) {
         StringBuilder sb = new StringBuilder();
         if (node != null) {
             sb.append(indent);
@@ -58,7 +66,6 @@ public class BinaryTree<S> implements DataStructure<S> {
         }
         return sb.toString();
     }
-
 
 
     public Node getRoot() {
@@ -136,6 +143,13 @@ public class BinaryTree<S> implements DataStructure<S> {
 
     @Override
     public void sort(String type) {
+        System.out.println("Tree layout: ");
+
+        if (type.equals("age")){
+            this.treeLayout = convertBtToBstForNumbers(this.root);
+        } else if (type.equals("name")) {
+            this.treeLayout = convertBtToBstForName(this.root);
+        }
 
     }
 }

@@ -42,7 +42,16 @@ public class PanelThree extends Panel  {
         this.panel.add(this.sortName);
     }
 
-    private void bubbleSortEventListener(String age, int height) {
+    private void bubbleSortEventListener(String parameter, int height) {
+        if (this.tree.getRoot() == null) {
+            JOptionPane.showMessageDialog(null, "Please build the tree first!");
+            return;
+        }
+        this.updateComponent(this.executionTime, false);
+        this.buildExecutionTimeField(ExecutionTime.calculateSortTime(this.tree, parameter));
+        this.updateComponent(this.executionTime, true);
+        this.nodeLayout = this.tree.getTreeLayout();
+        this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50)), true);
     }
 
     private void linearSearchEventListener() {
@@ -73,8 +82,8 @@ public class PanelThree extends Panel  {
      */
     private void buildButtons(){
         build = ComponentBuilder.buildButton("Build binary tree", new Rectangle(400, 20, 325, 30));
-        sortAge = ComponentBuilder.buildButton("Bubble sort age", new Rectangle(400, 60, 150, 30));
-        sortName = ComponentBuilder.buildButton("Bubble sort name", new Rectangle(575, 60, 150, 30));
+        sortAge = ComponentBuilder.buildButton("Sort by name", new Rectangle(400, 60, 150, 30));
+        sortName = ComponentBuilder.buildButton("Sort by age", new Rectangle(575, 60, 150, 30));
         search = ComponentBuilder.buildButton("Depth first search", new Rectangle(400, 140, 325, 30));
     }
 
@@ -91,8 +100,8 @@ public class PanelThree extends Panel  {
                                                                         <ol>
                                                                             <li> Generate the dataset (automatically) </li>
                                                                             <li> Build the binary tree </li>
-                                                                            <li> Sort the binary tree by name </li>
-                                                                            <li> Sort the binary tree by age </li>
+                                                                            <li> Binary search tree sort by name </li>
+                                                                            <li> Binary search tree sort by age </li>
                                                                             <li> Search through the binary tree by name or age </li>                                                                                                                                                      
                                                                         </ol>
                                                                     </p>
