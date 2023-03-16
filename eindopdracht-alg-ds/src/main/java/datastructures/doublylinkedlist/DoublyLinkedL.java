@@ -3,7 +3,7 @@ package datastructures.doublylinkedlist;
 import assets.dataset.Data;
 import assets.dataset.Person;
 import assets.interfaces.DataStructure;
-import datastructures.linkedlist.Node;
+import datastructures.linkedlist.LinkedL;
 
 import java.util.ArrayList;
 
@@ -124,13 +124,12 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         while (swapped) {
             swapped = false;
             DoublyNode curr = this.head;
-            DoublyNode next = curr.getNext();
 
             if (type.equals("age")){
-                swapped = this.sortByAge(curr);
+                swapped = this.bubbleSort(curr, "int");
 
             } else if (type.equals("name")) {
-                swapped = this.sortByName(curr);
+                swapped = this.bubbleSort(curr, "string");
             }
 
             System.out.println(this.getNodeLayout());
@@ -139,7 +138,7 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
 
     }
 
-    private Boolean sortByAge(DoublyNode head){
+    private Boolean bubbleSort(DoublyNode head, String type){
         Boolean swapped;
         DoublyNode curNode;
         DoublyNode loopNode = null;
@@ -152,7 +151,7 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
 
             while (curNode.next != loopNode)
             {
-                if (curNode.getData().getAge() > curNode.next.getData().getAge())
+                if (LinkedL.getComparison(type, curNode))
                 {
                     Person t = curNode.data;
                     curNode.data = curNode.next.data;
@@ -163,35 +162,6 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
             }
             loopNode = curNode;
         } while (swapped);
-
-        return swapped;
-    }
-
-    private Boolean sortByName(DoublyNode head){
-        Boolean swapped;
-        DoublyNode curNode;
-        DoublyNode loopNode = null;
-
-        // Checking for empty list
-        do
-        {
-            swapped = false;
-            curNode = head;
-
-            while (curNode.next != loopNode)
-            {
-                if (curNode.getData().getName().compareTo(curNode.next.getData().getName()) > 0)
-                {
-                    Person t = curNode.data;
-                    curNode.data = curNode.next.data;
-                    curNode.next.data = t;
-                    swapped = true;
-                }
-                curNode = curNode.next;
-            }
-            loopNode = curNode;
-        }
-        while (swapped);
 
         return swapped;
     }

@@ -4,6 +4,7 @@ import assets.dataset.Data;
 import assets.dataset.Person;
 import assets.interfaces.DataStructure;
 import com.github.javafaker.Bool;
+import datastructures.doublylinkedlist.DoublyNode;
 
 import java.util.*;
 
@@ -49,21 +50,22 @@ public class LinkedL <S> implements DataStructure <S> {
 
         while (swapped) {
             swapped = false;
-            Node prev = null;
-            Node curr = this.head;
-            Node next = curr.getNext();
 
             if (type.equals("age")){
-                swapped = this.bubbleSort(next, curr, prev, swapped, curr.getData().getAge() > next.getData().getAge());
+                swapped = this.bubbleSort(swapped, "int");
             } else if (type.equals("name")) {
-                swapped = this.bubbleSort(next, curr, prev, swapped, curr.getData().getName().compareTo(curr.next.getData().getName()) > 0);
+                swapped = this.bubbleSort(swapped, "string");
             }
         }
     }
 
-    private Boolean bubbleSort(Node next, Node curr, Node prev, Boolean swapped, Boolean comparison){
+    private Boolean bubbleSort(Boolean swapped, String type){
+        Node prev = null;
+        Node curr = this.head;
+        Node next = curr.getNext();
+
         while (next != null) {
-            if (comparison) {
+            if (getComparison(type, curr)) {
                 swapped = true;
 
                 if (prev != null) {
@@ -85,6 +87,20 @@ public class LinkedL <S> implements DataStructure <S> {
             next = next.getNext();
         }
         return swapped;
+    }
+
+    public static Boolean getComparison(String type, Object curr){
+        boolean result = false;
+
+        if (curr instanceof Node n){
+            result = type.equalsIgnoreCase("int") && n.getData().getAge() > n.next.getData().getAge();
+            result = type.equalsIgnoreCase("string") ? n.getData().getName().compareTo(n.next.getData().getName()) > 0: result;
+        } else if (curr instanceof DoublyNode n) {
+            result = type.equalsIgnoreCase("int") && n.getData().getAge() > n.getNext().getData().getAge();
+            result = type.equalsIgnoreCase("string") ? n.getData().getName().compareTo(n.getNext().getData().getName()) > 0: result;
+        }
+
+        return result;
     }
 
     public ArrayList<Person> getDataset() {
