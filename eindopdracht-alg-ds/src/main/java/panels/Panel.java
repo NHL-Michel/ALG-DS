@@ -11,7 +11,7 @@ public abstract class Panel {
     protected JPanel panel;
     protected ArrayList<Person> dataset;
     protected JButton build, search, sortAge, sortName;
-    protected JLabel executionTime;
+    protected JLabel executionTime, sort1, sort2;
     protected JTextArea inputBox;
     protected String dataSetString;
 

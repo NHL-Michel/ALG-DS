@@ -80,7 +80,7 @@ public class PanelOne extends Panel {
      * build all input field for panel one
      */
     private void buildInputFields(){
-        this.inputBox = ComponentBuilder.buildInputField("Search... (integers only)", new Rectangle(400, 180, 325, 20));
+        this.inputBox = ComponentBuilder.buildInputField("Search...", new Rectangle(400, 180, 325, 20));
         this.panel.add(this.inputBox);
     }
 
@@ -145,8 +145,21 @@ public class PanelOne extends Panel {
         this.updateComponent(this.executionTime, false);
         this.buildExecutionTimeField(ExecutionTime.calculateSortTime(this.ll, parameter));
         this.updateComponent(this.executionTime, true);
+
         this.nodeLayout = this.ll.getNodeLayout();
-        this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50)), true);
+        if (parameter.equals("name")) {
+            if (this.sort1 != null) {
+                this.updateComponent(this.sort1, false);
+            }
+            this.sort1 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50));
+            this.updateComponent(this.sort1, true);
+        } else if (parameter.equals("age")) {
+            if (this.sort2 != null) {
+                this.updateComponent(this.sort2, false);
+            }
+            this.sort2 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50));
+            this.updateComponent(this.sort2, true);
+        }
     }
 
     /**
