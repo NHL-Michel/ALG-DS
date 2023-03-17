@@ -51,7 +51,20 @@ public class PanelThree extends Panel  {
         this.buildExecutionTimeField(ExecutionTime.calculateSortTime(this.tree, parameter));
         this.updateComponent(this.executionTime, true);
         this.nodeLayout = this.tree.getTreeLayout();
-        this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50)), true);
+        if (parameter.equals("name")) {
+            if (this.sort1 != null) {
+                this.updateComponent(this.sort1, false);
+            }
+            this.sort1 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50));
+            this.updateComponent(this.sort1, true);
+        } else if (parameter.equals("age")) {
+            if (this.sort2 != null) {
+                this.updateComponent(this.sort2, false);
+            }
+            this.sort2 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50));
+            this.updateComponent(this.sort2, true);
+        }
+
     }
 
     private void linearSearchEventListener() {
