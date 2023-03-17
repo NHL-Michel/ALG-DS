@@ -9,18 +9,19 @@ import java.awt.*;
 
 import static panels.PanelOne.isParsable;
 
-public class PanelThree extends Panel  {
+public class PanelThree extends Panel {
 
     private BinaryTree tree;
     private String nodeLayout;
 
-    public PanelThree(){
+    public PanelThree() {
         this.tree = new BinaryTree();
         this.dataSetString = this.tree.getDataset().toString();
         this.buildPanel();
     }
+
     @Override
-    public void buildPanel(){
+    public void buildPanel() {
         this.buildHeaders();
         this.buildButtons();
         this.addActionListeners();
@@ -29,7 +30,7 @@ public class PanelThree extends Panel  {
         this.buildExecutionTimeField(0.0);
     }
 
-    private void addActionListeners(){
+    private void addActionListeners() {
         this.build.addActionListener(event -> buildBinaryTreeList());
 
         this.search.addActionListener(event -> linearSearchEventListener());
@@ -55,13 +56,13 @@ public class PanelThree extends Panel  {
             if (this.sort1 != null) {
                 this.updateComponent(this.sort1, false);
             }
-            this.sort1 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50));
+            this.sort1 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000, 50));
             this.updateComponent(this.sort1, true);
         } else if (parameter.equals("age")) {
             if (this.sort2 != null) {
                 this.updateComponent(this.sort2, false);
             }
-            this.sort2 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50));
+            this.sort2 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000, 50));
             this.updateComponent(this.sort2, true);
         }
 
@@ -71,7 +72,7 @@ public class PanelThree extends Panel  {
         String searchValue = this.inputBox.getText();
         Object searchTerm;
 
-        if (isParsable(searchValue)){
+        if (isParsable(searchValue)) {
             searchTerm = Integer.parseInt(searchValue);
         } else {
             searchTerm = searchValue;
@@ -86,14 +87,14 @@ public class PanelThree extends Panel  {
     /**
      * build all headers for panel one
      */
-    private void buildHeaders(){
+    private void buildHeaders() {
         this.panel.add(ComponentBuilder.buildHeader("Binary tree demo", new Rectangle(30, 20, 200, 20)));
     }
 
     /**
      * build all buttons for panel one
      */
-    private void buildButtons(){
+    private void buildButtons() {
         build = ComponentBuilder.buildButton("Build binary tree", new Rectangle(400, 20, 325, 30));
         sortAge = ComponentBuilder.buildButton("Sort by name", new Rectangle(400, 60, 150, 30));
         sortName = ComponentBuilder.buildButton("Sort by age", new Rectangle(575, 60, 150, 30));
@@ -103,62 +104,63 @@ public class PanelThree extends Panel  {
     /**
      * build all paragraphs for panel one
      */
-    private void buildParagraphs(){
+    private void buildParagraphs() {
         this.panel.add(ComponentBuilder.buildParagraph("""
-                                                                <html>
-                                                                    <p> 
-                                                                    In order to make use of the binary tree demo page, use the following step by step plan
-                                                                    <br>
-                                                                    <br>
-                                                                        <ol>
-                                                                            <li> Generate the dataset (automatically) </li>
-                                                                            <li> Build the binary tree </li>
-                                                                            <li> Binary search tree sort by name </li>
-                                                                            <li> Binary search tree sort by age </li>
-                                                                            <li> Search through the binary tree by name or age </li>                                                                                                                                                      
-                                                                        </ol>
-                                                                    </p>
-                                                                </html>
-                                                                """, new Rectangle(30, 60, 300, 180)));
+                <html>
+                    <p> 
+                    In order to make use of the binary tree demo page, use the following step by step plan
+                    <br>
+                    <br>
+                        <ol>
+                            <li> Generate the dataset (automatically) </li>
+                            <li> Build the binary tree </li>
+                            <li> Binary search tree sort by name </li>
+                            <li> Binary search tree sort by age </li>
+                            <li> Search through the binary tree by name or age </li>                                                                                                                                                      
+                        </ol>
+                    </p>
+                </html>
+                """, new Rectangle(30, 60, 300, 180)));
         this.panel.add(ComponentBuilder.buildParagraph("""
-                                                                <html>
-                                                                    <p>
-                                                                        <strong> 
-                                                                            Search
-                                                                        </strong>
-                                                                        by filling in the input field, and using a searching algorithm
-                                                                    </p> 
-                                                                </html>""", new Rectangle(400, 100, 400, 50)));
-        this.panel.add(ComponentBuilder.buildParagraph( String.format("Dataset : %s", this.dataSetString), new Rectangle(400, 200, 300, 50)));
+                <html>
+                    <p>
+                        <strong> 
+                            Search
+                        </strong>
+                        by filling in the input field, and using a searching algorithm
+                    </p> 
+                </html>""", new Rectangle(400, 100, 400, 50)));
+        this.panel.add(ComponentBuilder.buildParagraph(String.format("Dataset : %s", this.dataSetString), new Rectangle(400, 200, 300, 50)));
     }
 
     /**
      * build all input field for panel one
      */
-    private void buildInputFields(){
+    private void buildInputFields() {
         this.inputBox = ComponentBuilder.buildInputField("Search...", new Rectangle(400, 180, 325, 20));
         this.panel.add(this.inputBox);
     }
 
     /**
      * build the execution time for the application
+     *
      * @param data
      */
-    private void buildExecutionTimeField(double data){
-        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.1f MS (%f nanoseconds)", data / 1000000, data), new Rectangle(400, 220, 400,50));
+    private void buildExecutionTimeField(double data) {
+        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.1f MS (%f nanoseconds)", data / 1000000, data), new Rectangle(400, 220, 400, 50));
         this.panel.add(executionTime);
     }
 
-    private void buildBinaryTreeList(){
+    private void buildBinaryTreeList() {
         if (this.tree.getRoot() == null) {
             this.updateComponent(this.executionTime, false);
             this.buildExecutionTimeField(ExecutionTime.build(this.tree));
             this.updateComponent(this.executionTime, true);
             this.nodeLayout = this.tree.getTreeLayout();
-            this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, 550, 1000,50)), true);
-            JOptionPane.showMessageDialog(null,"Binary Tree is build!");
+            this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, 550, 1000, 50)), true);
+            JOptionPane.showMessageDialog(null, "Binary Tree is build!");
         } else {
-            JOptionPane.showMessageDialog(null,"Binary Tree is already build, cannot build again!");
+            JOptionPane.showMessageDialog(null, "Binary Tree is already build, cannot build again!");
         }
     }
 }

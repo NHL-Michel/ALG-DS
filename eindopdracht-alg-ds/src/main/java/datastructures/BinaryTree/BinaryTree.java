@@ -3,7 +3,6 @@ package datastructures.BinaryTree;
 import assets.dataset.Data;
 import assets.dataset.Person;
 import assets.interfaces.DataStructure;
-import datastructures.doublylinkedlist.DoublyNode;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -22,6 +21,9 @@ public class BinaryTree<S> implements DataStructure<S> {
         this.dataset = Data.generateRandomPersons(50, 100);
     }
 
+    /**
+     * Build the tree with the dataset
+     */
     @Override
     public void build() {
         for (Person p : this.dataset) {
@@ -35,6 +37,9 @@ public class BinaryTree<S> implements DataStructure<S> {
         return this.dataset;
     }
 
+    /**
+     * Set the tree layout
+     */
     public void setTreeLayout() {
         if (this.root == null) {
             System.out.println("Tree layout list is empty");
@@ -49,6 +54,14 @@ public class BinaryTree<S> implements DataStructure<S> {
         return this.treeLayout;
     }
 
+    /**
+     * Print the tree layout inOrder traversal with values  on insert
+     *
+     * @param node   item of tree
+     * @param indent indent for layout in console
+     * @param last   is last item
+     * @return String with tree layout
+     */
     public static String printInorder(Node node, String indent, boolean last) {
         StringBuilder sb = new StringBuilder();
         if (node != null) {
@@ -80,6 +93,12 @@ public class BinaryTree<S> implements DataStructure<S> {
         return n.getRight() != null;
     }
 
+    /**
+     * Get the height of the tree
+     *
+     * @param current height of tree node
+     * @return height of tree
+     */
     public int TreeHeight(Node current) {
         if (current == null) {
             return 0;
@@ -87,6 +106,12 @@ public class BinaryTree<S> implements DataStructure<S> {
         return (this.TreeHeight(current.getLeft()) + 1 + this.TreeHeight(current.getRight()));
     }
 
+    /**
+     * Add a new node to the tree
+     *
+     * @param data    data of node
+     * @param current current node to add node to
+     */
     public void add(Person data, Node current) {
         if (current == null) {
             this.root = new Node(data);
@@ -112,6 +137,12 @@ public class BinaryTree<S> implements DataStructure<S> {
         }
     }
 
+    /**
+     * Depth first search for a person age or name
+     *
+     * @param searchTerm term to be searched
+     * @return true or false
+     */
     @Override
     public boolean search(S searchTerm) {
         if (root == null) {
@@ -141,11 +172,16 @@ public class BinaryTree<S> implements DataStructure<S> {
         return false;
     }
 
+    /**
+     * calls right sorting algorithm
+     *
+     * @param type type of sorting
+     */
     @Override
     public void sort(String type) {
         System.out.println("Tree layout: ");
 
-        if (type.equals("age")){
+        if (type.equals("age")) {
             this.treeLayout = convertBtToBstForNumbers(this.root);
         } else if (type.equals("name")) {
             this.treeLayout = convertBtToBstForName(this.root);

@@ -1,7 +1,6 @@
 package datastructures.doublylinkedlist;
 
 import assets.dataset.Person;
-import datastructures.linkedlist.Node;
 
 public class DoublyNode {
     protected Person data;

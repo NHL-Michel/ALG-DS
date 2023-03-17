@@ -3,10 +3,16 @@ package datastructures.BinaryTree;
 import assets.dataset.Person;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class ConvertBtTOBst extends BinaryTree{
+public class ConvertBtTOBst extends BinaryTree {
+
+    /**
+     * convert a binary tree to a binary search tree on the basis of age
+     *
+     * @param root root of the binary tree
+     * @return layout of the binary search tree
+     */
     public static String convertBtToBstForNumbers(Node root) {
         List<Person> values = new ArrayList<>();
         storeInorderValues(root, values);
@@ -34,6 +40,12 @@ public class ConvertBtTOBst extends BinaryTree{
         return layout;
     }
 
+    /**
+     * convert a binary tree to a binary search tree on the basis of name
+     *
+     * @param root root of the binary tree
+     * @return layout of the binary search tree
+     */
     public static String convertBtToBstForName(Node root) {
         List<Person> values = new ArrayList<>();
         storeInorderValues(root, values);
@@ -62,6 +74,12 @@ public class ConvertBtTOBst extends BinaryTree{
         return layout;
     }
 
+    /**
+     * store the inorder values of the binary tree in a list
+     *
+     * @param root   root of the binary tree
+     * @param values list to store the values
+     */
     public static void storeInorderValues(Node root, List<Person> values) {
         if (root == null) {
             return;
@@ -71,6 +89,12 @@ public class ConvertBtTOBst extends BinaryTree{
         storeInorderValues(root.getRight(), values);
     }
 
+    /**
+     * replace the values of the binary tree with the values of the list
+     *
+     * @param root   root of the binary tree
+     * @param values list to store the values
+     */
     public static void replaceNodeValues(Node root, List<Person> values) {
         if (root == null) {
             return;

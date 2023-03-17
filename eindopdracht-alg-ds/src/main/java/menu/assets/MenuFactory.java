@@ -3,11 +3,11 @@ package menu.assets;
 import javax.swing.*;
 
 public class MenuFactory {
-    public static JMenu createMenu(String name){
+    public static JMenu createMenu(String name) {
         return new JMenu(name);
     }
 
-    public static JMenuItem createMenuItem(String name){
+    public static JMenuItem createMenuItem(String name) {
         return new JMenuItem(name);
     }
 

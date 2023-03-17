@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Data {
-    public static ArrayList<Person> generateRandomPersons(int size, int height){
+    public static ArrayList<Person> generateRandomPersons(int size, int height) {
         ArrayList<Person> personDataSet = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             Faker faker = new Faker();

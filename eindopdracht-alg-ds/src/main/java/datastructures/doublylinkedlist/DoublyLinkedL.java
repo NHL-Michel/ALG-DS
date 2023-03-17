@@ -7,7 +7,7 @@ import datastructures.linkedlist.LinkedL;
 
 import java.util.ArrayList;
 
-public class DoublyLinkedL <S> implements DataStructure <S> {
+public class DoublyLinkedL<S> implements DataStructure<S> {
     private ArrayList<Person> dataset;
     private DoublyNode head;
     private DoublyNode tail;
@@ -18,6 +18,12 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         this.head = null;
         this.tail = null;
     }
+
+    /**
+     * add a new node to the end of the list
+     *
+     * @param value value to be added
+     */
     public void add(Person value) {
         //Check if index is out of bounds
         // create new node
@@ -42,6 +48,11 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         }
     }
 
+    /**
+     * get the size of the doublylinked list
+     *
+     * @return size of list
+     */
     public int getSize() {
         int size = 0;
         DoublyNode n = this.head;
@@ -58,6 +69,11 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         return this.dataset;
     }
 
+    /**
+     * Get layout of the doublylinked list
+     *
+     * @return string with layout
+     */
     public String getNodeLayout() {
         DoublyNode n = this.head;
         StringBuilder nodeString = new StringBuilder();
@@ -89,6 +105,9 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         return nodeString.toString();
     }
 
+    /**
+     * build the Doublylinked list with the dataset
+     */
     @Override
     public void build() {
         for (Person p : this.dataset) {
@@ -97,6 +116,12 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         System.out.println(this.getNodeLayout());
     }
 
+    /**
+     * search for a person age or name
+     *
+     * @param searchTerm term to be searched
+     * @return true or false
+     */
     @Override
     public boolean search(S searchTerm) {
         DoublyNode n = this.head;
@@ -114,6 +139,12 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
         return false;
     }
 
+    /**
+     * calls the bubble sort method on type
+     *
+     * @param type age or name
+     */
+    @Override
     public void sort(String type) {
         if (this.head == null || this.head.getNext() == null) {
             return;
@@ -125,7 +156,7 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
             swapped = false;
             DoublyNode curr = this.head;
 
-            if (type.equals("age")){
+            if (type.equals("age")) {
                 swapped = this.bubbleSort(curr, "int");
 
             } else if (type.equals("name")) {
@@ -138,21 +169,25 @@ public class DoublyLinkedL <S> implements DataStructure <S> {
 
     }
 
-    private Boolean bubbleSort(DoublyNode head, String type){
+    /**
+     * Bubble sort for Doubly Linked List
+     *
+     * @param head - head of the list
+     * @param type - type of data to sort by name or age
+     * @return
+     */
+    private Boolean bubbleSort(DoublyNode head, String type) {
         Boolean swapped;
         DoublyNode curNode;
         DoublyNode loopNode = null;
 
         // Checking for empty list
-        do
-        {
+        do {
             swapped = false;
             curNode = head;
 
-            while (curNode.next != loopNode)
-            {
-                if (LinkedL.getComparison(type, curNode))
-                {
+            while (curNode.next != loopNode) {
+                if (LinkedL.getComparison(type, curNode)) {
                     Person t = curNode.data;
                     curNode.data = curNode.next.data;
                     curNode.next.data = t;

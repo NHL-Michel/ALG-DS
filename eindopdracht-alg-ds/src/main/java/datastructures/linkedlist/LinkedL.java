@@ -17,7 +17,10 @@ public class LinkedL <S> implements DataStructure <S> {
         this.dataset = Data.generateRandomPersons(5, 100);
     }
 
-    // get the age of a person
+
+    /**
+     * build the linked list with the dataset
+     */
     @Override
     public void build(){
         for (Person p : dataset) {
@@ -25,6 +28,12 @@ public class LinkedL <S> implements DataStructure <S> {
         }
     }
 
+    /**
+     * search for a person age or name
+     *
+     * @param searchTerm term to be searched
+     * @return true or false
+     */
     @Override
     public boolean search(S searchTerm) {
         Node n = this.head;
@@ -40,6 +49,10 @@ public class LinkedL <S> implements DataStructure <S> {
         return false;
     }
 
+    /**
+     * calls right sorting algorithm
+     * @param type
+     */
     @Override
     public void sort(String type) {
         if (this.head == null || this.head.getNext() == null) {
@@ -59,6 +72,13 @@ public class LinkedL <S> implements DataStructure <S> {
         }
     }
 
+    /**
+     * bubble sort
+     *
+     * @param swapped true or false if swapped
+     * @param type type of sorting
+     * @return return true or false and sorts list
+     */
     private Boolean bubbleSort(Boolean swapped, String type){
         Node prev = null;
         Node curr = this.head;
@@ -89,6 +109,11 @@ public class LinkedL <S> implements DataStructure <S> {
         return swapped;
     }
 
+    /**
+     * get comparison string
+     *
+     * @return true or false
+     */
     public static Boolean getComparison(String type, Object curr){
         boolean result = false;
 
@@ -148,6 +173,11 @@ public class LinkedL <S> implements DataStructure <S> {
         return size;
     }
 
+    /**
+     * get the node layout
+     *
+     * @return string with layout of the nodes
+     */
     public String getNodeLayout(){
         Node n = this.head;
         StringBuilder nodeString = new StringBuilder();

@@ -6,19 +6,19 @@ import datastructures.linkedlist.LinkedL;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 public class PanelOne extends Panel {
     private LinkedL ll;
     private String nodeLayout;
 
-    public PanelOne(){
+    public PanelOne() {
         this.ll = new LinkedL();
         this.dataSetString = this.ll.getDataset().toString();
         this.buildPanel();
     }
+
     @Override
-    public void buildPanel(){
+    public void buildPanel() {
         this.buildHeaders();
         this.buildButtons();
         this.addActionListeners();
@@ -30,14 +30,14 @@ public class PanelOne extends Panel {
     /**
      * build all headers for panel one
      */
-    private void buildHeaders(){
+    private void buildHeaders() {
         this.panel.add(ComponentBuilder.buildHeader("Linked list demo", new Rectangle(30, 20, 200, 20)));
     }
 
     /**
      * build all buttons for panel one
      */
-    private void buildButtons(){
+    private void buildButtons() {
         build = ComponentBuilder.buildButton("Build Linked list", new Rectangle(400, 20, 325, 30));
         sortAge = ComponentBuilder.buildButton("Bubble sort age", new Rectangle(400, 60, 150, 30));
         sortName = ComponentBuilder.buildButton("Bubble sort name", new Rectangle(575, 60, 150, 30));
@@ -47,56 +47,57 @@ public class PanelOne extends Panel {
     /**
      * build all paragraphs for panel one
      */
-    private void buildParagraphs(){
+    private void buildParagraphs() {
         this.panel.add(ComponentBuilder.buildParagraph("""
-                                                                <html>
-                                                                    <p> 
-                                                                    In order to make use of the linked list demo page, use the following step by step plan
-                                                                    <br>
-                                                                    <br>
-                                                                        <ol>
-                                                                            <li> Generate the dataset (automatically) </li>
-                                                                            <li> Build the linked list </li>
-                                                                            <li> Sort the linked list by name </li>
-                                                                            <li> Sort the linked list by age </li>
-                                                                            <li> Search through the linked list by name or age </li>                                                                                                                                                      
-                                                                        </ol>
-                                                                    </p>
-                                                                </html>
-                                                                """, new Rectangle(30, 60, 300, 180)));
+                <html>
+                    <p> 
+                    In order to make use of the linked list demo page, use the following step by step plan
+                    <br>
+                    <br>
+                        <ol>
+                            <li> Generate the dataset (automatically) </li>
+                            <li> Build the linked list </li>
+                            <li> Sort the linked list by name </li>
+                            <li> Sort the linked list by age </li>
+                            <li> Search through the linked list by name or age </li>                                                                                                                                                      
+                        </ol>
+                    </p>
+                </html>
+                """, new Rectangle(30, 60, 300, 180)));
         this.panel.add(ComponentBuilder.buildParagraph("""
-                                                                <html>
-                                                                    <p>
-                                                                        <strong> 
-                                                                            Search
-                                                                        </strong>
-                                                                        by filling in the input field, and using a searching algorithm
-                                                                    </p> 
-                                                                </html>""", new Rectangle(400, 100, 400, 50)));
-        this.panel.add(ComponentBuilder.buildParagraph( String.format("Dataset : %s", this.dataSetString), new Rectangle(400, 200, 300, 50)));
+                <html>
+                    <p>
+                        <strong> 
+                            Search
+                        </strong>
+                        by filling in the input field, and using a searching algorithm
+                    </p> 
+                </html>""", new Rectangle(400, 100, 400, 50)));
+        this.panel.add(ComponentBuilder.buildParagraph(String.format("Dataset : %s", this.dataSetString), new Rectangle(400, 200, 300, 50)));
     }
 
     /**
      * build all input field for panel one
      */
-    private void buildInputFields(){
+    private void buildInputFields() {
         this.inputBox = ComponentBuilder.buildInputField("Search...", new Rectangle(400, 180, 325, 20));
         this.panel.add(this.inputBox);
     }
 
     /**
      * build the execution time for the application
+     *
      * @param data
      */
-    private void buildExecutionTimeField(double data){
-        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.1f MS (%f nanoseconds)", data / 1000000, data), new Rectangle(400, 220, 400,50));
+    private void buildExecutionTimeField(double data) {
+        this.executionTime = ComponentBuilder.buildParagraph(String.format("Execution time : %,.1f MS (%f nanoseconds)", data / 1000000, data), new Rectangle(400, 220, 400, 50));
         this.panel.add(executionTime);
     }
 
     /**
      * give all JButtons an action listener
      */
-    private void addActionListeners(){
+    private void addActionListeners() {
         this.build.addActionListener(event -> buildLinkedList());
         this.search.addActionListener(event -> linearSearchEventListener());
         this.sortAge.addActionListener(event -> bubbleSortEventListener("age", 600));
@@ -108,29 +109,28 @@ public class PanelOne extends Panel {
         this.panel.add(this.sortName);
     }
 
-
-    /**
-     * start action listeners
-     */
-
-    private void buildLinkedList(){
+    private void buildLinkedList() {
         if (this.ll.getSize() != this.ll.getDataset().size()) {
             this.updateComponent(this.executionTime, false);
             this.buildExecutionTimeField(ExecutionTime.build(this.ll));
             this.updateComponent(this.executionTime, true);
             this.nodeLayout = this.ll.getNodeLayout();
-            this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, 550, 1000,50)), true);
-            JOptionPane.showMessageDialog(null,"Linked list build!");
+            this.updateComponent(ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, 550, 1000, 50)), true);
+            JOptionPane.showMessageDialog(null, "Linked list build!");
         } else {
-            JOptionPane.showMessageDialog(null,"Linked list already build, cannot build again!");
+            JOptionPane.showMessageDialog(null, "Linked list already build, cannot build again!");
         }
     }
 
-    private void linearSearchEventListener(){
+
+    /**
+     * linear search event listener
+     */
+    private void linearSearchEventListener() {
         String searchValue = this.inputBox.getText();
         Object searchTerm;
 
-        if (isParsable(searchValue)){
+        if (isParsable(searchValue)) {
             searchTerm = Integer.parseInt(searchValue);
         } else {
             searchTerm = searchValue;
@@ -141,7 +141,13 @@ public class PanelOne extends Panel {
         this.updateComponent(this.executionTime, true);
     }
 
-    private void bubbleSortEventListener(String parameter, int height){
+    /**
+     * bubble sort event listener
+     *
+     * @param parameter name or age
+     * @param height    height of the paragraph
+     */
+    private void bubbleSortEventListener(String parameter, int height) {
         this.updateComponent(this.executionTime, false);
         this.buildExecutionTimeField(ExecutionTime.calculateSortTime(this.ll, parameter));
         this.updateComponent(this.executionTime, true);
@@ -151,13 +157,13 @@ public class PanelOne extends Panel {
             if (this.sort1 != null) {
                 this.updateComponent(this.sort1, false);
             }
-            this.sort1 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50));
+            this.sort1 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000, 50));
             this.updateComponent(this.sort1, true);
         } else if (parameter.equals("age")) {
             if (this.sort2 != null) {
                 this.updateComponent(this.sort2, false);
             }
-            this.sort2 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000,50));
+            this.sort2 = ComponentBuilder.buildParagraph(this.nodeLayout, new Rectangle(40, height, 1000, 50));
             this.updateComponent(this.sort2, true);
         }
     }
