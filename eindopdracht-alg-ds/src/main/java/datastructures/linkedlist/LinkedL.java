@@ -3,12 +3,11 @@ package datastructures.linkedlist;
 import assets.dataset.Data;
 import assets.dataset.Person;
 import assets.interfaces.DataStructure;
-import com.github.javafaker.Bool;
 import datastructures.doublylinkedlist.DoublyNode;
 
-import java.util.*;
+import java.util.ArrayList;
 
-public class LinkedL <S> implements DataStructure <S> {
+public class LinkedL<S> implements DataStructure<S> {
     private ArrayList<Person> dataset;
     private Node head;
     private Node tail;
@@ -17,12 +16,56 @@ public class LinkedL <S> implements DataStructure <S> {
         this.dataset = Data.generateRandomPersons(5, 100);
     }
 
+    public Node getHead() {
+        return head;
+    }
+
+    public Node getTail() {
+        return tail;
+    }
+
+    public ArrayList<Person> getDataset() {
+        return this.dataset;
+    }
+
+    /**
+     * get the size of the linked list
+     *
+     * @return
+     */
+    public int getSize() {
+        int size = 0;
+        Node n = this.head;
+
+        while (n != null) {
+            size += 1;
+            n = n.getNext();
+        }
+
+        return size;
+    }
+
+    /**
+     * get the node layout
+     *
+     * @return string with layout of the nodes
+     */
+    public String getNodeLayout() {
+        Node n = this.head;
+        StringBuilder nodeString = new StringBuilder();
+        while (n != null) {
+            nodeString.append("{Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + "} > ");
+            n = n.getNext();
+        }
+        nodeString.append("NULL");
+        return nodeString.toString();
+    }
 
     /**
      * build the linked list with the dataset
      */
     @Override
-    public void build(){
+    public void build() {
         for (Person p : dataset) {
             this.appendNode(p);
         }
@@ -51,6 +94,7 @@ public class LinkedL <S> implements DataStructure <S> {
 
     /**
      * calls right sorting algorithm
+     *
      * @param type
      */
     @Override
@@ -64,7 +108,7 @@ public class LinkedL <S> implements DataStructure <S> {
         while (swapped) {
             swapped = false;
 
-            if (type.equals("age")){
+            if (type.equals("age")) {
                 swapped = this.bubbleSort(swapped, "int");
             } else if (type.equals("name")) {
                 swapped = this.bubbleSort(swapped, "string");
@@ -76,10 +120,10 @@ public class LinkedL <S> implements DataStructure <S> {
      * bubble sort
      *
      * @param swapped true or false if swapped
-     * @param type type of sorting
+     * @param type    type of sorting
      * @return return true or false and sorts list
      */
-    private Boolean bubbleSort(Boolean swapped, String type){
+    private Boolean bubbleSort(Boolean swapped, String type) {
         Node prev = null;
         Node curr = this.head;
         Node next = curr.getNext();
@@ -114,22 +158,18 @@ public class LinkedL <S> implements DataStructure <S> {
      *
      * @return true or false
      */
-    public static Boolean getComparison(String type, Object curr){
+    public static Boolean getComparison(String type, Object curr) {
         boolean result = false;
 
-        if (curr instanceof Node n){
+        if (curr instanceof Node n) {
             result = type.equalsIgnoreCase("int") && n.getData().getAge() > n.next.getData().getAge();
-            result = type.equalsIgnoreCase("string") ? n.getData().getName().compareTo(n.next.getData().getName()) > 0: result;
+            result = type.equalsIgnoreCase("string") ? n.getData().getName().compareTo(n.next.getData().getName()) > 0 : result;
         } else if (curr instanceof DoublyNode n) {
             result = type.equalsIgnoreCase("int") && n.getData().getAge() > n.getNext().getData().getAge();
-            result = type.equalsIgnoreCase("string") ? n.getData().getName().compareTo(n.getNext().getData().getName()) > 0: result;
+            result = type.equalsIgnoreCase("string") ? n.getData().getName().compareTo(n.getNext().getData().getName()) > 0 : result;
         }
 
         return result;
-    }
-
-    public ArrayList<Person> getDataset() {
-        return this.dataset;
     }
 
     /**
@@ -154,38 +194,5 @@ public class LinkedL <S> implements DataStructure <S> {
         } else {
             this.head = n;
         }
-    }
-
-    /**
-     * get the size of the linked list
-     *
-     * @return
-     */
-    public int getSize() {
-        int size = 0;
-        Node n = this.head;
-
-        while (n != null) {
-            size += 1;
-            n = n.getNext();
-        }
-
-        return size;
-    }
-
-    /**
-     * get the node layout
-     *
-     * @return string with layout of the nodes
-     */
-    public String getNodeLayout(){
-        Node n = this.head;
-        StringBuilder nodeString = new StringBuilder();
-        while (n != null) {
-            nodeString.append("{Name: " + n.getData().getName() + ", age : " + n.getData().getAge() + "} > ");
-            n = n.getNext();
-        }
-        nodeString.append("NULL");
-        return nodeString.toString();
     }
 }

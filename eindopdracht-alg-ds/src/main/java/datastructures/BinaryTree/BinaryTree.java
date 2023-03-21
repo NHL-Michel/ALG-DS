@@ -21,18 +21,6 @@ public class BinaryTree<S> implements DataStructure<S> {
         this.dataset = Data.generateRandomPersons(50, 100);
     }
 
-    /**
-     * Build the tree with the dataset
-     */
-    @Override
-    public void build() {
-        for (Person p : this.dataset) {
-            this.add(p, this.root);
-        }
-        this.setTreeLayout();
-        System.out.println(this.getTreeLayout());
-    }
-
     public ArrayList<Person> getDataset() {
         return this.dataset;
     }
@@ -53,6 +41,44 @@ public class BinaryTree<S> implements DataStructure<S> {
 
         return this.treeLayout;
     }
+
+    public Node getRoot() {
+        return this.root;
+    }
+
+    public Boolean hasLeft(Node n) {
+        return n.getLeft() != null;
+    }
+
+    public Boolean hasRight(Node n) {
+        return n.getRight() != null;
+    }
+
+    /**
+     * Get the height of the tree
+     *
+     * @param current height of tree node
+     * @return height of tree
+     */
+    public int TreeHeight(Node current) {
+        if (current == null) {
+            return 0;
+        }
+        return (this.TreeHeight(current.getLeft()) + 1 + this.TreeHeight(current.getRight()));
+    }
+
+    /**
+     * Build the tree with the dataset
+     */
+    @Override
+    public void build() {
+        for (Person p : this.dataset) {
+            this.add(p, this.root);
+        }
+        this.setTreeLayout();
+        System.out.println(this.getTreeLayout());
+    }
+
 
     /**
      * Print the tree layout inOrder traversal with values  on insert
@@ -78,32 +104,6 @@ public class BinaryTree<S> implements DataStructure<S> {
             sb.append(printInorder(node.getRight(), indent, true));
         }
         return sb.toString();
-    }
-
-
-    public Node getRoot() {
-        return this.root;
-    }
-
-    public Boolean hasLeft(Node n) {
-        return n.getLeft() != null;
-    }
-
-    public Boolean hasRight(Node n) {
-        return n.getRight() != null;
-    }
-
-    /**
-     * Get the height of the tree
-     *
-     * @param current height of tree node
-     * @return height of tree
-     */
-    public int TreeHeight(Node current) {
-        if (current == null) {
-            return 0;
-        }
-        return (this.TreeHeight(current.getLeft()) + 1 + this.TreeHeight(current.getRight()));
     }
 
     /**
@@ -187,5 +187,43 @@ public class BinaryTree<S> implements DataStructure<S> {
             this.treeLayout = convertBtToBstForName(this.root);
         }
 
+    }
+
+    /**
+     * Delete a node from the tree
+     *
+     * @param root       node to start and check
+     * @param deleteTerm term to be deleted
+     */
+    public Node deleteNode(Node root, S deleteTerm) {
+        if (root == null) {
+            return null;
+        }
+
+        Integer age = root.getData().getAge();
+        String name = root.getData().getName();
+
+        if (age.equals(deleteTerm) || name.equals(deleteTerm)) {
+            if (root.getLeft() == null) {
+                return root.getRight();
+            } else if (root.getRight() == null) {
+                return root.getLeft();
+            } else {
+                Node smallest = root.getRight();
+                while (smallest.getLeft() != null) {
+                    smallest = smallest.getLeft();
+                }
+                root.setData(smallest.getData());
+                root.setRight(deleteNode(root.getRight(), deleteTerm));
+            }
+        } else {
+            root.setLeft(deleteNode(root.getLeft(), deleteTerm));
+            root.setRight(deleteNode(root.getRight(), deleteTerm));
+        }
+
+        // Perform inorder traversal to restructure the tree
+        this.setTreeLayout();
+
+        return this.root;
     }
 }

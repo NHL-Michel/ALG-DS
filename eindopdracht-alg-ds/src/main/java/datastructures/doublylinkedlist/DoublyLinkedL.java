@@ -19,6 +19,14 @@ public class DoublyLinkedL<S> implements DataStructure<S> {
         this.tail = null;
     }
 
+    public DoublyNode getHead() {
+        return this.head;
+    }
+
+    public DoublyNode getTail() {
+        return this.tail;
+    }
+
     /**
      * add a new node to the end of the list
      *
@@ -33,18 +41,18 @@ public class DoublyLinkedL<S> implements DataStructure<S> {
         if (this.head == null) {
             this.head = this.tail = newNode;
             //head's previous will be null
-            this.head.prev = null;
+            this.head.setPrev(null);
             //tail's next will be null
-            this.tail.next = null;
+            this.tail.setNext(null);
         } else {
             //add newNode to the end of list. tail->next set to newNode
-            this.tail.next = newNode;
+            this.tail.setNext(newNode);
             //newNode->previous set to tail
-            newNode.prev = tail;
+            newNode.setPrev(this.tail);
             //newNode becomes new tail
             this.tail = newNode;
             //tail's next point to null
-            this.tail.next = null;
+            this.tail.setNext(null);
         }
     }
 
@@ -85,16 +93,16 @@ public class DoublyLinkedL<S> implements DataStructure<S> {
         System.out.println("Nodes of doubly linked list: ");
         System.out.println("/////////////////////////");
         while (n != null) {
-            if (n.prev == null) {
+            if (n.getPrev() == null) {
                 System.out.println("prev is: null");
             } else {
-                System.out.println("prev is: " + n.prev.data.getName());
+                System.out.println("prev is: " + n.getPrev().getData().getName());
             }
-            System.out.println("cur is:" + n.data.getName());
-            if (n.next == null) {
+            System.out.println("cur is:" + n.getData().getName());
+            if (n.getNext() == null) {
                 System.out.println("next is: null");
             } else {
-                System.out.println("next is: " + n.next.data.getName());
+                System.out.println("next is: " + n.getNext().getData().getName());
             }
             System.out.println("/////////////////////////");
             //Print each node and then go to next.
@@ -186,18 +194,49 @@ public class DoublyLinkedL<S> implements DataStructure<S> {
             swapped = false;
             curNode = head;
 
-            while (curNode.next != loopNode) {
+            while (curNode.getNext() != loopNode) {
                 if (LinkedL.getComparison(type, curNode)) {
-                    Person t = curNode.data;
-                    curNode.data = curNode.next.data;
-                    curNode.next.data = t;
+                    Person t = curNode.getData();
+                    curNode.setData(curNode.getNext().getData());
+                    curNode.getNext().setData(t);
                     swapped = true;
                 }
-                curNode = curNode.next;
+                curNode = curNode.getNext();
             }
             loopNode = curNode;
         } while (swapped);
 
         return swapped;
+    }
+
+    /**
+     * remove a node from the list
+     *
+     * @param deleteTerm value to be removed
+     */
+    public void remove(S deleteTerm) {
+        if (this.head == null) {
+            return;
+        }
+
+        DoublyNode n = this.head;
+
+        while (n != null) {
+            Integer age = n.getData().getAge();
+            String name = n.getData().getName();
+            if (age.equals(deleteTerm) || name.equals(deleteTerm)) {
+                if (n.getPrev() == null) {
+                    this.head = n.getNext();
+                    this.head.setPrev(null);
+                } else if (n.getNext() == null) {
+                    this.tail = n.getPrev();
+                    this.tail.setNext(null);
+                } else {
+                    n.getPrev().setNext(n.getNext());
+                    n.getNext().setPrev(n.getPrev());
+                }
+            }
+            n = n.getNext();
+        }
     }
 }

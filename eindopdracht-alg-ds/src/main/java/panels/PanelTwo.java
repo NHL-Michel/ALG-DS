@@ -131,7 +131,7 @@ public class PanelTwo extends Panel {
      * build all input field for panel one
      */
     private void buildInputFields() {
-        this.inputBox = ComponentBuilder.buildInputField("Search... (integers only)", new Rectangle(400, 180, 325, 20));
+        this.inputBox = ComponentBuilder.buildInputField("Search...", new Rectangle(400, 180, 325, 20));
         this.panel.add(this.inputBox);
     }
 
