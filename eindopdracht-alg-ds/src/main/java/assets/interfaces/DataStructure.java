@@ -1,9 +1,14 @@
 package assets.interfaces;
 
-public interface DataStructure {
+/**
+ * Interface that is implemented on the Binarytree, doublylinkedlist and linkedlist
+ * @param <S> generic searchterm
+ */
+public interface DataStructure<S> {
     void build();
-    void search();
-    void sort();
+
+    boolean search(S searchterm);
+
+    void sort(String type);
 
 }
-

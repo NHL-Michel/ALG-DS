@@ -10,24 +10,26 @@ import java.util.ArrayList;
 public abstract class Panel {
     protected JPanel panel;
     protected ArrayList<Person> dataset;
-    protected JButton build, search, sort;
-    protected JLabel executionTime;
+    protected JButton build, search, sortAge, sortName;
+    protected JLabel executionTime, sort1, sort2;
     protected JTextArea inputBox;
     protected String dataSetString;
 
-    public Panel(){
+    public Panel() {
         this.panel = new JPanel(null);
         this.dataset = Data.generateRandomPersons(10, 100);
         this.panel.setBackground(new Color(255, 255, 255));
     }
+
     public abstract void buildPanel();
 
     /**
      * update a component in the JPanel
-     * @param c component to add or remove
+     *
+     * @param c            component to add or remove
      * @param addComponent tells if the component should be added or removed
      */
-    public void updateComponent(Component c, Boolean addComponent){
+    public void updateComponent(Component c, Boolean addComponent) {
         if (addComponent) {
             this.panel.add(c);
         } else {
@@ -40,7 +42,7 @@ public abstract class Panel {
     /**
      * @return return the JPanel object
      */
-    public JPanel getPanel(){
+    public JPanel getPanel() {
         return this.panel;
     }
 }

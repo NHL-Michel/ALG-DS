@@ -3,8 +3,8 @@ package datastructures.linkedlist;
 import assets.dataset.Person;
 
 public class Node {
-    private Person data;
-    private Node next;
+    protected Person data;
+    protected Node next;
 
     public Node(Person data) {
         this.data = data;
