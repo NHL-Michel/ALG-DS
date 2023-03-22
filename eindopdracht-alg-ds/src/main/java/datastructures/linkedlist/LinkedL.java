@@ -195,4 +195,40 @@ public class LinkedL<S> implements DataStructure<S> {
             this.head = n;
         }
     }
+
+    /**
+     * remove a node from the list
+     *
+     * @param deleteTerm value to be removed
+     */
+    public void remove(S deleteTerm) {
+        if (this.head == null) {
+            return;
+        }
+
+        Node n = this.head;
+        Node p = null;
+
+        while (n != null) {
+            Integer age = n.getData().getAge();
+            String name = n.getData().getName();
+
+            if (age.equals(deleteTerm) || name.equals(deleteTerm)) {
+                if (p == null) {
+                    this.head = n.getNext();
+                } else {
+                    p.setNext(n.getNext());
+                }
+
+                if (n.getNext() == null) {
+                    this.tail = p;
+                }
+
+                break;
+            }
+
+            p = n;
+            n = n.getNext();
+        }
+    }
 }
